@@ -5,13 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Wish list</title>
 </head>
 <body>
-    <div>
-        <h1>Wish list</h1>
+
+    <div id="form" class="formHidde">
+        <h2>New wish</h2>
+        <label for="tab-1">Name</label><input id="tab-1" type="text">
+        <label for="tab-2">Link</label><input id="tab-2" type="text">
+        <label for="tab-3">Price</label><input id="tab-3" type="text">
+        <br>
+        <input onclick="saveEl()" type="button" value="OK">
+        <input onclick="cancelForm()" type="button" value="Cancel">    
     </div>
 
+    
+    <div class="list">
+        <h1>Wish list</h1>
+        <button onclick="AddElement()">Add your wish</button>
+    </div>
+    <!-- <div class="smog">vv</div> -->
+    
     <script src="script.js"></script>
 </body>
 </html>
