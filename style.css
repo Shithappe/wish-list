@@ -15,10 +15,16 @@
     border-radius: 15px;
     box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
     padding: 20px;
+    background-color: blanchedalmond;
 }
 
 .list{
     z-index: 0;
+    display: flex;
+    align-items: center;
+}
+.list * {
+    margin: 10px;
 }
 
 .smog{
