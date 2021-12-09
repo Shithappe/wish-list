@@ -36,6 +36,7 @@ function viewList(){
         let link = document.createElement('input');
         link.value = allEl[i].link;
         link.setAttribute('disabled', 'disabled');
+        link.setAttribute('id', 'copyLink');
         div.appendChild(link);
         
         //copt btn
@@ -56,14 +57,8 @@ function getParentElemId() {
     let parentEl = this.parentNode;
     console.log(parentEl.id);
     allEl = JSON.parse(localStorage.getItem('allEl'));
-    console.log(allEl[parentEl.id].link);
 
-    // var text = document.getElementById("inputText");
-
-    // btn.onclick = function() {
-    //     text.select();    
-    //     document.execCommand("copy");
-    // }
+    navigator.clipboard.writeText(allEl[parentEl.id].link);
 }
 
 function setDone(){
