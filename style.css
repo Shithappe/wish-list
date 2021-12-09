@@ -1,3 +1,7 @@
+body{
+    background: rgb(245, 245, 245);
+}
+
 .formHidde{
     display: none;
 }
@@ -40,4 +44,26 @@
     padding: 10px;
     border-radius: 15px;
     box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    background: rgb(252, 252, 252);
+}
+
+.item *{
+    margin: 5px 5px 7px 0;
+}
+
+.doneBth{
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding: 3px;
+    background: wheat;
+}
+
+.doneBth:after{
+    content: '\2713';
+}
+
+.done{
+    background: rgb(224, 224, 224);
 }

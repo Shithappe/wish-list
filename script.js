@@ -5,31 +5,77 @@ viewList();
 function viewList(){
     let allEl = [];
     if (localStorage.getItem('allEl')) allEl = JSON.parse(localStorage.getItem('allEl'));
-    console.log(allEl);
-
 
     for (i = 0; i < allEl.length; i++) {
         let div = document.createElement('div');
         div.className = "item";
-        div.innerHTML = '<h3>' + allEl[i].name + '</h3>' + 
-                        '<div>' + allEl[i].link + '</div>' + '<br>' + allEl[i].price;
-        // div.addEventListener('click', setdata, false);
         div.setAttribute('id', i);
+
+        if (allEl[i].done){
+            div.classList.add("done");
+        }
+
+        // h3 name
+        let name = document.createElement('span');
+        name.innerHTML = allEl[i].name;
+        div.appendChild(name);
+
+        //btn done
+        // if (!allEl[i].done){
+            let doneBtn = document.createElement('button');
+            doneBtn.onclick = setDone;
+            // doneBtn.innerText = 'Done';
+            doneBtn.setAttribute('class', 'doneBth');
+            div.appendChild(doneBtn);
+        // }
+
+        let br = document.createElement('br');
+        div.appendChild(br);
+        
+        //link
+        let link = document.createElement('input');
+        link.value = allEl[i].link;
+        link.setAttribute('disabled', 'disabled');
+        div.appendChild(link);
+        
+        //copt btn
         let copyBtn = document.createElement('button');
         copyBtn.onclick = getParentElemId;
         copyBtn.innerText = 'copy';
         div.appendChild(copyBtn);
+        
+        let price = document.createElement('p');
+        price.innerText = allEl[i].price;
+        div.appendChild(price);
+        
         document.body.append(div);
     }  
 }
 
 function getParentElemId() {
-    // console.log(this);
     let parentEl = this.parentNode;
     console.log(parentEl.id);
-    document.execCommand("copy");//no..
+    allEl = JSON.parse(localStorage.getItem('allEl'));
+    console.log(allEl[parentEl.id].link);
 
+    // var text = document.getElementById("inputText");
+
+    // btn.onclick = function() {
+    //     text.select();    
+    //     document.execCommand("copy");
+    // }
 }
+
+function setDone(){
+    let parentEl = this.parentNode;
+    console.log(parentEl.id);
+    allEl = JSON.parse(localStorage.getItem('allEl'));
+    allEl[parentEl.id].done = !allEl[parentEl.id].done;
+    localStorage.setItem('allEl', JSON.stringify(allEl));
+    if (allEl[parentEl.id].done) parentEl.classList.add("done");
+    else parentEl.classList.remove("done");
+}
+
 function setdata() {
     console.log(this.id);
 }
@@ -42,8 +88,6 @@ function AddElement(){
 function cancelForm(){
     Form.classList.remove("formShow");
     Form.classList.add("formHidde");
-
-    console.log(localStorage.getItem('allEl'));
 }
 
 function saveEl(){
