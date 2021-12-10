@@ -3,8 +3,7 @@ const Form = document.getElementById('form');
 viewList();
 
 function viewList(){
-    let allEl = [];
-    if (localStorage.getItem('allEl')) allEl = JSON.parse(localStorage.getItem('allEl'));
+    let allEl = (localStorage.getItem('allEl')) ? JSON.parse(localStorage.getItem('allEl')) : [];
 
     for (i = 0; i < allEl.length; i++) {
         let div = document.createElement('div');
@@ -21,13 +20,11 @@ function viewList(){
         div.appendChild(name);
 
         //btn done
-        // if (!allEl[i].done){
-            let doneBtn = document.createElement('button');
-            doneBtn.onclick = setDone;
-            // doneBtn.innerText = 'Done';
-            doneBtn.setAttribute('class', 'doneBth');
-            div.appendChild(doneBtn);
-        // }
+        let doneBtn = document.createElement('button');
+        doneBtn.onclick = setDone;
+        // doneBtn.innerText = 'Done';
+        doneBtn.setAttribute('class', 'doneBth');
+        div.appendChild(doneBtn);
 
         let br = document.createElement('br');
         div.appendChild(br);
@@ -53,9 +50,9 @@ function viewList(){
     }  
 }
 
-function getParentElemId() {
+function getParentElemId() { //переписать, добавить атрибут со ссылкой
     let parentEl = this.parentNode;
-    console.log(parentEl.id);
+    // console.log(parentEl.id);
     allEl = JSON.parse(localStorage.getItem('allEl'));
 
     navigator.clipboard.writeText(allEl[parentEl.id].link);
@@ -67,12 +64,7 @@ function setDone(){
     allEl = JSON.parse(localStorage.getItem('allEl'));
     allEl[parentEl.id].done = !allEl[parentEl.id].done;
     localStorage.setItem('allEl', JSON.stringify(allEl));
-    if (allEl[parentEl.id].done) parentEl.classList.add("done");
-    else parentEl.classList.remove("done");
-}
-
-function setdata() {
-    console.log(this.id);
+    parentEl.classList.toggle('done');
 }
 
 function AddElement(){
@@ -83,6 +75,10 @@ function AddElement(){
 function cancelForm(){
     Form.classList.remove("formShow");
     Form.classList.add("formHidde");
+
+    document.getElementById('name').value = "";
+    document.getElementById('link').value = "";
+    document.getElementById('price').value = "";
 }
 
 function saveEl(){
@@ -107,6 +103,8 @@ function saveEl(){
         div.innerHTML = '<h3>' + newEl.name + '</h3>' + 
                         '<div>' + newEl.link + '<button>copy</button>' + '</div>' + '<br>' + newEl.price;
         document.body.append(div);
+         // написать функцию для добавления одно элемента с параметрами 
+        // и встроить в viewList
 
     cancelForm();
 }

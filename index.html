@@ -10,11 +10,19 @@
 <body>
 
     <div id="form" class="formHidde">
+        <!-- add tag form
+             add lisner on form submit
+            stop submit
+            read filed form
+            !!!Event.preventDefault() Event.stopPropagation()-->
+
+            <!-- названия клссов  -->
         <h2>New wish</h2>
         <label for="name">Name</label><input id="name" type="text">
         <label for="link">Link</label><input id="link" type="text">
         <label for="price">Price</label><input id="price" type="text">
         <br>
+        <!-- add обработчик -->
         <input onclick="saveEl()" type="button" value="OK">
         <input onclick="cancelForm()" type="button" value="Cancel">    
     </div>

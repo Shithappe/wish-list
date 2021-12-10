@@ -27,8 +27,8 @@ body{
     display: flex;
     align-items: center;
 }
-.list * {
-    margin: 10px;
+.list h1 {
+    margin: 10px 20px 10px 10px;
 }
 
 .smog{
