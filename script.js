@@ -1,4 +1,5 @@
 const Form = document.getElementById('form');
+// Form.addEventListener(SubmitEvent, saveEl)
 
 viewList();
 
@@ -6,47 +7,7 @@ function viewList(){
     let allEl = (localStorage.getItem('allEl')) ? JSON.parse(localStorage.getItem('allEl')) : [];
 
     for (i = 0; i < allEl.length; i++) {
-        let div = document.createElement('div');
-        div.className = "item";
-        div.setAttribute('id', i);
-
-        if (allEl[i].done){
-            div.classList.add("done");
-        }
-
-        // h3 name
-        let name = document.createElement('span');
-        name.innerHTML = allEl[i].name;
-        div.appendChild(name);
-
-        //btn done
-        let doneBtn = document.createElement('button');
-        doneBtn.onclick = setDone;
-        // doneBtn.innerText = 'Done';
-        doneBtn.setAttribute('class', 'doneBth');
-        div.appendChild(doneBtn);
-
-        let br = document.createElement('br');
-        div.appendChild(br);
-        
-        //link
-        let link = document.createElement('input');
-        link.value = allEl[i].link;
-        link.setAttribute('disabled', 'disabled');
-        link.setAttribute('id', 'copyLink');
-        div.appendChild(link);
-        
-        //copt btn
-        let copyBtn = document.createElement('button');
-        copyBtn.onclick = getParentElemId;
-        copyBtn.innerText = 'copy';
-        div.appendChild(copyBtn);
-        
-        let price = document.createElement('p');
-        price.innerText = allEl[i].price;
-        div.appendChild(price);
-        
-        document.body.append(div);
+        viewEl(allEl[i]);
     }  
 }
 
@@ -82,6 +43,7 @@ function cancelForm(){
 }
 
 function saveEl(){
+    // event.preventDefault();
 
     let newEl = {
         name: document.getElementById('name').value,
@@ -90,21 +52,56 @@ function saveEl(){
         done: false
     }
 
-    let allEl = [];
-    if (localStorage.getItem('allEl')) allEl = JSON.parse(localStorage.getItem('allEl'));
+    let allEl = (localStorage.getItem('allEl')) ? JSON.parse(localStorage.getItem('allEl')) : [];
 
     allEl.push(newEl);
 
-
     localStorage.setItem('allEl', JSON.stringify(allEl));
-    
-    let div = document.createElement('div');
-        div.className = "item";
-        div.innerHTML = '<h3>' + newEl.name + '</h3>' + 
-                        '<div>' + newEl.link + '<button>copy</button>' + '</div>' + '<br>' + newEl.price;
-        document.body.append(div);
-         // написать функцию для добавления одно элемента с параметрами 
-        // и встроить в viewList
+
+    viewEl(newEl);
 
     cancelForm();
+}
+
+function viewEl(el){
+    let div = document.createElement('div');
+        div.className = "item";
+        div.setAttribute('id', i);
+
+        if (el.done){
+            div.classList.add("done");
+        }
+
+        // h3 name
+        let name = document.createElement('span');
+        name.innerHTML = el.name;
+        div.appendChild(name);
+
+        //btn done
+        let doneBtn = document.createElement('button');
+        doneBtn.onclick = setDone;
+        doneBtn.setAttribute('class', 'doneBth');
+        div.appendChild(doneBtn);
+
+        let br = document.createElement('br');
+        div.appendChild(br);
+        
+        //link
+        let link = document.createElement('input');
+        link.value = el.link;
+        link.setAttribute('disabled', 'disabled');
+        link.setAttribute('id', 'copyLink');
+        div.appendChild(link);
+        
+        //copt btn
+        let copyBtn = document.createElement('button');
+        copyBtn.onclick = getParentElemId;
+        copyBtn.innerText = 'copy';
+        div.appendChild(copyBtn);
+        
+        let price = document.createElement('p');
+        price.innerText = el.price;
+        div.appendChild(price);
+        
+        document.body.append(div);
 }
