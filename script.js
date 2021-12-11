@@ -1,5 +1,4 @@
 const Form = document.getElementById('form');
-// Form.addEventListener(SubmitEvent, saveEl)
 
 viewList();
 
@@ -12,20 +11,18 @@ function viewList(){
 }
 
 function getParentElemId() { //переписать, добавить атрибут со ссылкой
-    let parentEl = this.parentNode;
-    // console.log(parentEl.id);
+    let id = this.getAttribute('data-myId');
     allEl = JSON.parse(localStorage.getItem('allEl'));
 
-    navigator.clipboard.writeText(allEl[parentEl.id].link);
+    navigator.clipboard.writeText(allEl[id].link);
 }
 
 function setDone(){
-    let parentEl = this.parentNode;
-    console.log(parentEl.id);
+    let id = this.getAttribute('data-myId');
     allEl = JSON.parse(localStorage.getItem('allEl'));
-    allEl[parentEl.id].done = !allEl[parentEl.id].done;
+    allEl[id].done = !allEl[id].done;
     localStorage.setItem('allEl', JSON.stringify(allEl));
-    parentEl.classList.toggle('done');
+    this.parentNode.classList.toggle('done');
 }
 
 function AddElement(){
@@ -81,6 +78,7 @@ function viewEl(el){
         let doneBtn = document.createElement('button');
         doneBtn.onclick = setDone;
         doneBtn.setAttribute('class', 'doneBth');
+        doneBtn.setAttribute('data-myId', i);
         div.appendChild(doneBtn);
 
         let br = document.createElement('br');
@@ -95,6 +93,7 @@ function viewEl(el){
         
         //copt btn
         let copyBtn = document.createElement('button');
+        copyBtn.setAttribute('data-myId', i);
         copyBtn.onclick = getParentElemId;
         copyBtn.innerText = 'copy';
         div.appendChild(copyBtn);
