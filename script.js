@@ -10,7 +10,7 @@ function viewList(){
     }  
 }
 
-function getParentElemId() { //переписать, добавить атрибут со ссылкой
+function copyLink() {
     let id = this.getAttribute('data-myId');
     allEl = JSON.parse(localStorage.getItem('allEl'));
 
@@ -77,7 +77,7 @@ function viewEl(el){
         //btn done
         let doneBtn = document.createElement('button');
         doneBtn.onclick = setDone;
-        doneBtn.setAttribute('class', 'doneBth');
+        doneBtn.setAttribute('class', 'doneButton');
         doneBtn.setAttribute('data-myId', i);
         div.appendChild(doneBtn);
 
@@ -94,7 +94,9 @@ function viewEl(el){
         //copt btn
         let copyBtn = document.createElement('button');
         copyBtn.setAttribute('data-myId', i);
-        copyBtn.onclick = getParentElemId;
+        copyBtn.classList.add('button');
+        copyBtn.classList.add('copyButton');
+        copyBtn.onclick = copyLink;
         copyBtn.innerText = 'copy';
         div.appendChild(copyBtn);
         
