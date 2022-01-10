@@ -1,9 +1,11 @@
-import Wish from './Wish.js'
-import Notification from './Notification.js'
-import AddItemForm from './AddItemForm.js'
+import Wish from '../components/Wish.js'
+import Notification from '../components/Notification.js'
+import AddItemForm from '../components/AddItemForm.js'
+// import ShareList from './ShareList.js'
 
 export default function Home() {
     let data = {
+        id: 1,
         name: 'max',
         link: 'http://localhost:3000/home',
         price: '500$'
@@ -19,7 +21,9 @@ export default function Home() {
             </div>
             <Notification name='awd'/>
             <AddItemForm/>
+            {/* <ShareList /> */}
             
+            {/* useForm */}
             <Wish data={data} />
             <Wish data={data} />
             <Wish data={data} />

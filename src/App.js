@@ -8,8 +8,8 @@ import {
   Redirect,
   withRouter
 } from "react-router-dom"
-import Home from './components/Home.js'
-import Auth from './components/Auth.js'
+import Home from './pages/Home.js'
+import Auth from './pages/Auth.js'
 
 class App extends Component {
   render() {
