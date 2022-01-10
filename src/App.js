@@ -9,7 +9,7 @@ import {
   withRouter
 } from "react-router-dom"
 import Home from './components/Home.js'
-import Wish from './components/Wish.js'
+import Auth from './components/Auth.js'
 
 class App extends Component {
   render() {
@@ -19,7 +19,7 @@ class App extends Component {
       <div>
         <Switch>
           <Route history={history} path='/home' component={Home} />
-          <Route history={history} path='/awd' component={Wish} />
+          <Route history={history} path='/auth' component={Auth} />
           <Redirect from='/' to='/home'/>
         </Switch>
       </div>

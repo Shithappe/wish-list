@@ -1,4 +1,5 @@
 import Wish from './Wish.js'
+import Notification from './Notification.js'
 
 export default function Home() {
     let data = {
@@ -8,7 +9,19 @@ export default function Home() {
     }
     return (
         <div className='main'>
-            <h1>Wish List<span>.react</span></h1>
+            <div className='nav'>
+                <div className='title'>
+                    <h1>Wish List<span>.react</span> </h1>
+                    <button>Add wish</button>
+                </div>
+                <button>Share wish</button>
+            </div>
+            <Notification name='awd'/>
+            
+            <Wish data={data} />
+            <Wish data={data} />
+            <Wish data={data} />
+            <Wish data={data} />
             <Wish data={data} />
             <Wish data={data} />
         </div>
