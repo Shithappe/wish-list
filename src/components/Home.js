@@ -1,5 +1,6 @@
 import Wish from './Wish.js'
 import Notification from './Notification.js'
+import AddItemForm from './AddItemForm.js'
 
 export default function Home() {
     let data = {
@@ -17,6 +18,7 @@ export default function Home() {
                 <button>Share wish</button>
             </div>
             <Notification name='awd'/>
+            <AddItemForm/>
             
             <Wish data={data} />
             <Wish data={data} />

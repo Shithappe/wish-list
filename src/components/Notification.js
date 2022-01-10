@@ -4,7 +4,7 @@ export default function Notification(props) {
 
             
             <p><b>{props.name}</b> gave you access to his list</p>
-            <div>
+            <div className="formButtons">
                 <button>Accept</button>
                 <button>Cancel</button>
             </div>
