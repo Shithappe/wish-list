@@ -3,13 +3,17 @@ import Notification from '../components/Notification.js'
 import AddItemForm from '../components/AddItemForm.js'
 // import ShareList from './ShareList.js'
 
+import data from '../customData.json'
+
 export default function Home() {
-    let data = {
-        id: 1,
-        name: 'max',
-        link: 'http://localhost:3000/home',
-        price: '500$'
-    }
+    // let data = {
+    //     id: 1,
+    //     name: 'max',
+    //     link: 'http://localhost:3000/home',
+    //     price: '500$'
+    // }
+    console.log(data);
+    
     return (
         <div className='main'>
             <div className='nav'>
@@ -24,12 +28,8 @@ export default function Home() {
             {/* <ShareList /> */}
             
             {/* useForm */}
-            <Wish data={data} />
-            <Wish data={data} />
-            <Wish data={data} />
-            <Wish data={data} />
-            <Wish data={data} />
-            <Wish data={data} />
+
+            {data.map((data) =>  <Wish key={data.id} data={data}/>)}
         </div>
     )
 }
