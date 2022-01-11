@@ -16,12 +16,11 @@ export default function RegisterForm(handleMode){
                                 }
                             })} type='text' placeholder="Username" />
                         {errors.username?.message ? <p className='tipInForm'>{errors.username?.message}</p> : null}
-                        {/* <p>{errors.username?.message}</p> */}
 
                         <input {...register('email', {required: "This is required"})} type='email' placeholder="E-mail" />
                         {errors.email?.message ? <p className='tipInForm'>{errors.email?.message}</p> : null}
 
-                        <input {...register('password1', {
+                        <input {...register('password', {
                             required: "This is required",
                             minLength: {
                                 value: 8,
@@ -32,8 +31,7 @@ export default function RegisterForm(handleMode){
                                 message: "Must have a number and uppercase"
                             }
                         })} type='password' placeholder="Password" />
-                        {errors.password1?.message ? <p className='tipInForm'>{errors.password1?.message}</p> : null}
-                        {/* {errors.password1?.type === "minLength" && "Last name is required"} */}
+                        {errors.password?.message ? <p className='tipInForm'>{errors.password?.message}</p> : null}
 
                         <input {...register('comfPass', {required: "This is required"})} type='password' placeholder="Confirm Password" />
                         {/* {errors.comfPass?.value !== errors.password?.value ? <p className='tipInForm'>awd</p> : null} */}
