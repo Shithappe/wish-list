@@ -4,7 +4,6 @@ body{
   width: 100%;
   height: 100%;
   background-image: url("./assets/back.png");
-  /* background-color: rgb(250, 250, 250); */
   background-size: 680px; 
 }
 
@@ -61,7 +60,6 @@ body{
 }
 
 .addItemForm form{
-  /* position: absolute; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,7 +87,6 @@ body{
 
 .addItemForm input[type='text']:focus{
   border-bottom: 1px solid black;
-  /* height: 5vh; */
   color: black;
 }
 
@@ -153,20 +150,6 @@ span{
   font-weight: lighter;
   color: rgb(126, 126, 126);
 }
-
-.chooseMode{
-  margin-top: 7vh;
-  display: flex;
-  justify-content: center;
-  gap: 5vh;
-}
-
-/* .secondaryButtons{
-  position: absolute;
-  top: 25.5vh;
-  left: -11.5vh;
-  transform: rotate(0.25turn);
-} */
 
 .secondaryButtons *{
   font-weight: normal;
