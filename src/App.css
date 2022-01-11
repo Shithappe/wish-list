@@ -164,3 +164,15 @@ span{
   box-shadow:  none;
   text-shadow: 3px 1px 14px rgba(150, 150, 150, 1);
 }
+
+.tipInForm{
+  /* text-decoration: overline; */
+  width: 80%;
+  margin: -0.65em auto -0.45em;
+  overflow: hidden;
+  text-align: center;
+  line-height: 1.2em;
+  color: red;
+  background: none;
+  border-top: 3px solid red;
+}
