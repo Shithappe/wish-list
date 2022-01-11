@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 export default function Home() {
     const { register, handleSubmit, formState: {errors} } = useForm();
     console.log(errors);
+
     function Login(){
         return(
             <div className="login addItemForm">
@@ -11,7 +12,7 @@ export default function Home() {
                             console.log(data);
                         })}>
                             <h1>Login</h1>
-                            <input {...register("username", {required: true, minLength: 4})} type='text' placeholder="Username" />
+                            <input {...register("username", {required: true, minLength: 3})} type='text' placeholder="Username" />
                             <input {...register("password")} type='text' placeholder="Password" />
                             <input type='submit' value='Login' />
                             <div className='secondaryButtons'>
@@ -30,9 +31,9 @@ export default function Home() {
             <div className="register addItemForm">
                         <form>
                         <h1>Register</h1>
-                            <input type='text' placeholder="Username" />
-                            <input type='text' placeholder="E-mail" />
-                            <input type='text' placeholder="Password" />
+                            <input {...register('username', {required: true, minLength: 3})} type='text' placeholder="Username" />
+                            <input {...register('email', {required: true, minLength: 3})} type='email' placeholder="E-mail" />
+                            <input {...register('password', {required: true, minLength: 3})} type='password' placeholder="Password" />
                             <input type='text' placeholder="Comf Password" />
                             <input type='submit' value='Register' />
                             <div className='secondaryButtons'>

@@ -77,7 +77,7 @@ body{
   box-shadow: 6px 6px 12px 2px rgba(34, 60, 80, 0.3);
 }
 
-.addItemForm input[type='text']{
+.addItemForm input[type='text'], [type='email'], [type='password']{
   margin: 5px;
   padding: 10px;
   border: none;
