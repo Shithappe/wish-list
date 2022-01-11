@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
-
+import { useForm } from "react-hook-form";
 
 export default function Home() {
-
+    const { register, handleSubmit, formState: {errors} } = useForm();
+    console.log(errors);
     function Login(){
         return(
             <div className="login addItemForm">
-                        <form>
-                        <h1>Login</h1>
-                            <input type='text' placeholder="Username" />
-                            <input type='text' placeholder="Password" />
+                        <form onSubmit={handleSubmit((data) => {
+                            console.log(data);
+                        })}>
+                            <h1>Login</h1>
+                            <input {...register("username", {required: true, minLength: 4})} type='text' placeholder="Username" />
+                            <input {...register("password")} type='text' placeholder="Password" />
                             <input type='submit' value='Login' />
-                        <div className='secondaryButtons'>
+                            <div className='secondaryButtons'>
                                 <button onClick={() => setMode('register')}>Register</button>
                                 <button onClick={() => setMode('forgot')}>Forgot Password</button>
                             </div>
                         </form>
+                        <br/>
+                        
                     </div>
         )
     }
@@ -36,15 +41,6 @@ export default function Home() {
                             </div>
                         </form>
                     </div>
-        )
-    }
-    
-    function ChooseMode(){
-        return(
-            <div className='chooseMode'>
-                <button onClick={() => setMode('login')}>Login</button>
-                <button onClick={() => setMode('register')}>Register</button>
-            </div>
         )
     }
 
@@ -69,9 +65,7 @@ export default function Home() {
 
     if (mode === "login"){
         return(
-            <div className='auth'>
-                <Login/>    
-            </div>  
+            <Login/>    
         )
     }
     else if (mode === 'register') {
