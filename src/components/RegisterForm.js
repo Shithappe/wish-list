@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
 
 export default function RegisterForm(handleMode){
-    const { register, handleSubmit, formState: {errors} } = useForm();
+    const { register, handleSubmit, formState: {errors}, watch } = useForm();
+    const pass = watch('password')
+    const cPass = watch('comfPass')
     return(
         <div className="register addItemForm">
                     <form onSubmit={handleSubmit((data) => {
@@ -34,7 +36,7 @@ export default function RegisterForm(handleMode){
                         {errors.password?.message ? <p className='tipInForm'>{errors.password?.message}</p> : null}
 
                         <input {...register('comfPass', {required: "This is required"})} type='password' placeholder="Confirm Password" />
-                        {/* {errors.comfPass?.value !== errors.password?.value ? <p className='tipInForm'>awd</p> : null} */}
+                        {cPass !== pass ? <p className='tipInForm'>Password mismatch</p> : null}
 
                         <br/>
                         <input type='submit' value='Register' />
