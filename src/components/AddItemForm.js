@@ -1,4 +1,4 @@
-export default function AddItemForm() {
+export default function AddItemForm(handleWish) {
     return (
         <div className="addItemForm">
             <form>
@@ -11,7 +11,7 @@ export default function AddItemForm() {
 
                 <div className="formButtons">
                     <input type='submit' value='Create'/>
-                    <input type='button' value='Cancel'/>
+                    <input onClick={() => handleWish.handleWish(false)} type='button' value='Cancel'/>
                 </div>
             </form>
         </div>
