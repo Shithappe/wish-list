@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Wish from '../components/Wish.js'
-import Notification from '../components/Notification.js'
+// import Notification from '../components/Notification.js'
 import AddItemForm from '../components/AddItemForm.js'
 // import ShareList from './ShareList.js'
 
@@ -11,6 +11,11 @@ export default function Home() {
     const [wish, setWish] = useState(false); //switch for showing the form addWish
 
     console.log(data);
+
+    function addWish(item){
+        data.push(item);
+        console.log(data);
+    }
 
     function Nav(){
         return(
@@ -30,7 +35,17 @@ export default function Home() {
             {/* <Notification name='awd'/> */}
             {/* <ShareList /> */}
 
-            { wish && <AddItemForm handleWish={(value) => { setWish(value) }}/> }
+            { wish && <AddItemForm 
+                            // fucn={
+                            //     handleWish: (value) => { setWish(value) },
+                            //     addWish: (item) => { addWish(item) }
+                            // }
+
+                            handleWish={(value) => { setWish(value) }} 
+                            addWish={ (item) => { addWish(item) }} 
+                        /> 
+            }
+
             { data.map((data) =>  <Wish key={data.id} data={data}/>) }
         </div>
     )

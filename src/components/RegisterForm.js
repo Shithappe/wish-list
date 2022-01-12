@@ -2,10 +2,11 @@ import { useForm } from "react-hook-form";
 
 export default function RegisterForm(handleMode){
     const { register, handleSubmit, formState: {errors}, watch } = useForm();
-    const pass = watch('password')
-    const cPass = watch('comfPass')
+    const pass = watch('password');
+    const cPass = watch('comfPass');
+    console.log(handleMode);
     return(
-        <div className="register addItemForm">
+        <div className="addItemForm">
                     <form onSubmit={handleSubmit((data) => {
                         console.log(data);
                     })}>
