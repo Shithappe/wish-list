@@ -8,11 +8,7 @@ import data from '../customData.json'
 
 export default function Home() {
 
-    const [wish, setWish] = useState(false);
-
-    function handleWish(value){
-        setWish(value);
-    }
+    const [wish, setWish] = useState(false); //switch for showing the form addWish
 
     console.log(data);
 
