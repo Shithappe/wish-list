@@ -97,6 +97,7 @@ body{
   border-radius: 15px;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   background: rgb(240, 240, 240);
+  min-width: 200px;
 }
 
 .listItem:hover{

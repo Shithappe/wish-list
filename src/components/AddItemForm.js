@@ -6,7 +6,8 @@ export default function AddItemForm(handleWish) {
     return (
         <div className="addItemForm">
             <form onSubmit={handleSubmit((data) => {
-                    handleWish.addWish(data)
+                    handleWish.addWish(data);
+                    handleWish.handleWish(false);
                     })}>
                 <h2>Add Wish</h2>
                 <input {...register('name', {required: "This is required"})} type='text' placeholder="Name"/>
