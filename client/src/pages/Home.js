@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Wish from '../components/Wish.js'
 // import Notification from '../components/Notification.js'
-import AddItemForm from '../components/AddItemForm.js'
 // import ShareList from './ShareList.js'
+import AddItemForm from '../components/AddItemForm.js'
 
 import axios from 'axios';
 // import data from '../customData.json'
@@ -10,17 +10,22 @@ import axios from 'axios';
 export default function Home() {
 
     const [wish, setWish] = useState(false); //switch for showing the form addWish
+    const [data, setData] = useState([]);
 
-let data;
+      useEffect(() => {
+        axios({
+          method: 'get',
+          url: "http://localhost:8000"
+        })
+        .then(function (response) {
+            setData(response.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+          });
+    }, [])
 
-    axios.get('http://localhost:8000')
-  .then(function (response) {
-    console.log(response);
-    data = response.data;
-  })
-  .catch((error) => {
-    console.log(error);
-  })
+  console.log(data);
 
     function addWish(item){
         data.push(item);
@@ -38,25 +43,21 @@ let data;
             </div>
         )
     }
+
+    
+    
     
     return (
         <div className='main'>
             <Nav/>
-            {/* <Notification name='awd'/> */}
-            {/* <ShareList /> */}
 
             { wish && <AddItemForm 
-                            // fucn={
-                            //     handleWish: (value) => { setWish(value) },
-                            //     addWish: (item) => { addWish(item) }
-                            // }
-
                             handleWish={(value) => { setWish(value) }} 
                             addWish={ (item) => { addWish(item) }} 
                         /> 
             }
 
-            {/* { data.map((data) =>  <Wish key={data.id} data={data}/>) } */}
+            { data.map((data) =>  <Wish key={data.id} data={data}/>) }
         </div>
     )
 }
