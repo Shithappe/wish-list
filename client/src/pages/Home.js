@@ -4,13 +4,23 @@ import Wish from '../components/Wish.js'
 import AddItemForm from '../components/AddItemForm.js'
 // import ShareList from './ShareList.js'
 
-import data from '../customData.json'
+import axios from 'axios';
+// import data from '../customData.json'
 
 export default function Home() {
 
     const [wish, setWish] = useState(false); //switch for showing the form addWish
 
-    console.log(data);
+let data;
+
+    axios.get('http://localhost:8000')
+  .then(function (response) {
+    console.log(response);
+    data = response.data;
+  })
+  .catch((error) => {
+    console.log(error);
+  })
 
     function addWish(item){
         data.push(item);
@@ -46,7 +56,7 @@ export default function Home() {
                         /> 
             }
 
-            { data.map((data) =>  <Wish key={data.id} data={data}/>) }
+            {/* { data.map((data) =>  <Wish key={data.id} data={data}/>) } */}
         </div>
     )
 }
