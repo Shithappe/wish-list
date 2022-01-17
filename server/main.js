@@ -1,44 +1,59 @@
+
+        
+        // let data;
+        
+        //  connection.query("select * from wishs",
+        //   function(err, results) {
+          //     console.log(err);
+          //     data = results;
+          //     console.log(results); // собственно данные
+          // });
+          
+          
+          
+          
+          
+          // app.get('/', (req, res) => {
+            //   res.statusCode = 200;
+            //   res.setHeader('Content-Type', 'text/plain');
+            //   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+            //   res.end(JSON.stringify(data))
+            // })
+            
+            
+const express = require('express');
+const app = express();
+
 const mysql = require("mysql2");
+const dotenv = require('dotenv');
+const port = 8000;
+
+dotenv.config();
 
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "WishList",
-  password: "1234"
-});
- connection.connect(function(err){
-    if (err) {
-      return console.error("Ошибка: " + err.message);
-    }
-    else{
-      console.log("Подключение к серверу MySQL успешно установлено");
-    }
- });
+    host: 'localhost',
+    user: process.env.DB_USER,
+    database: 'WishList',
+    password: process.env.DB_PASSWORD
+  });
+    connection.connect(function(err){
+        if (err) {
+            return console.error("Error: " + err.message);
+          }
+          else{
+              console.log("Connected to MySql");
+            }
+          });
 
-let data;
+const authRouter = require('./routers/auth.js');
+app.use('/api/user', authRouter);
 
- connection.query("select * from wishs",
-  function(err, results, fields) {
-    console.log(err);
-    data = results;
-    console.log(results); // собственно данные
-    console.log(fields); // мета-данные полей 
-});
+// const router = express.Router();
 
-
-
-
-const express = require('express')
-const app = express()
-const port = 8000
-
-app.get('/', (req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.end(JSON.stringify(data))
-})
+// router.get('/', function (req, res) {
+//     res.send('hello world')
+//   })
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Server running http://localhost:${port}`)
 })
