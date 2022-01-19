@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import axios from 'axios';
+import Cookies from "js-cookie";
 
 export default function AddItemForm(handleWish) {
     const { register, handleSubmit, formState: {errors} } = useForm();
@@ -6,6 +8,20 @@ export default function AddItemForm(handleWish) {
     return (
         <div className="addItemForm">
             <form onSubmit={handleSubmit((data) => {
+                    axios.post('http://localhost:8000/api/wish/add/', {
+                        name: data.name,
+                        link: data.link,
+                        price: data.price
+                      },
+                      {
+                          headers: {
+                            "Authorization": Cookies.get('Authorization'),
+                            'Content-Type': 'application/json'
+                          }
+                      })
+                      .then(function (response) { console.log(response.data); })
+                      .catch(function (error) { console.log(error); });
+
                     handleWish.addWish(data);
                     handleWish.handleWish(false);
                     })}>

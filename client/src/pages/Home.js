@@ -5,7 +5,7 @@ import Wish from '../components/Wish.js'
 import AddItemForm from '../components/AddItemForm.js'
 
 import axios from 'axios';
-// import data from '../customData.json'
+import Cookies from "js-cookie";
 
 export default function Home() {
 
@@ -15,7 +15,11 @@ export default function Home() {
       useEffect(() => {
         axios({
           method: 'get',
-          url: "http://localhost:8000"
+          url: "http://localhost:8000/api/wish/",
+          headers: {
+            "Authorization": Cookies.get('Authorization'),
+            'Content-Type': 'application/json'
+          }
         })
         .then(function (response) {
             setData(response.data)

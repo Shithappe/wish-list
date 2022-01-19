@@ -11,19 +11,29 @@ const wishSchema = Joi.object({
 });
 
 router.get('/', verify, (req, res) => {
-    res.status(200).send('haцher');
-    console.log(req.user._id);
+    try{
+        connection.query(
+            `SELECT * FROM WISHS WHERE user_id = ${req.user._id};`,
+            function(err, result) {
+                if (!err) {
+                    res.status(201).send(result);
+                }
+            }
+        );
+    }
+    catch(err){
+        res.status(400).send(err);
+    }
 });
 
 router.post('/add', verify, (req, res) => {
 
-    console.log(req.body);
     const validation = wishSchema.validate(req.body);
     if (validation.error) return res.status(422).send(validation.error.details[0].message);
 
     try{
         connection.query(
-            `INSERT INTO wishs (name, link, price) VALUES ('${req.body.name}', '${req.body.link}', '${req.body.price}');`,
+            `INSERT INTO wishs (name, link, price, user_id) VALUES ('${req.body.name}', '${req.body.link}', '${req.body.price}', '${req.user._id}');`,
             function(err) {
                 if (!err) {
                     res.sendStatus(201);

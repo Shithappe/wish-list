@@ -15,7 +15,8 @@ CREATE Table Wishs(
     name VARCHAR(255),
     link TEXT,
     price VARCHAR(255),
-    done BOOLEAN DEFAULT 0
+    done BOOLEAN DEFAULT 0,
+    user_id INT UNSIGNED
 );
 
 INSERT INTO Wishs (name, link, price)
