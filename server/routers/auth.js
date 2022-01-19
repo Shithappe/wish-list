@@ -12,17 +12,20 @@ const schema = Joi.object({
     email: Joi.string().min(6).required().email()
 });
 
+const loginSchema = Joi.object({
+    email: Joi.string().min(6).required().email(),
+    password: Joi.string().min(6).required()
+});
 
-router.post('/register', function (req, res) {
+
+router.post('/register', async function (req, res) {
 
     const validation = schema.validate(req.body);
-    if (validation.error) {
-        res.status(422).send(validation.error.details[0].message);
-    }
+    if (validation.error) return res.status(422).send(validation.error.details[0].message);
 
     try{
-        const salt = bcrypt.genSaltSync(10);
-        hashPassword = bcrypt.hash(req.body.password, salt);
+        const salt = await bcrypt.genSaltSync(10);
+        hashPassword = await bcrypt.hash(req.body.password, salt);
 
         connection.query(
             `INSERT INTO users (username, password, email) VALUES ('${req.body.username}', '${hashPassword}', '${req.body.email}');`,
@@ -31,7 +34,7 @@ router.post('/register', function (req, res) {
                     res.sendStatus(201);
                 }
                 else {
-                    err.errno === 1062 && res.status(400).send("username already exist");
+                    err.errno === 1062 && res.status(400).send("user already exist");
                     console.log(err);
                 }
             }
@@ -44,24 +47,22 @@ router.post('/register', function (req, res) {
 
 router.post('/login', function (req, res) {
 
-    const validation = schema.validate(req.body);
-    if (validation.error) {
-        res.status(422).send(validation.error.details[0].message);
-    }
+    const validation = loginSchema.validate(req.body);
+    if (validation.error) return res.status(422).send(validation.error.details[0].message);
 
     try{
         connection.query(
-            `INSERT INTO users (username, password, email) VALUES ('${req.body.username}', '${req.body.password}', '${req.body.email}');`,
+            `SELECT * FROM users WHERE email = '${req.body.email}';`,
             function(err, results) {
                 if (!err) {
-                    res.sendStatus(201);
+                    if (results.length !== 0) {
+                        const validPass = bcrypt.compareSync(req.body.password, results[0].password);
+                        if (!validPass) return res.status(400).send('Invalid password');
+
+                        res.send('logged in');
+                    }
+                    else res.send('Wrong email');
                 }
-                else {
-                    err.errno === 1062 && res.status(400).send("username already exist");
-                    console.log(err);
-                }
-               
-                console.log(results); // собственно данные
             }
         );
     }

@@ -6,8 +6,8 @@ USE WishList;
 CREATE Table Users(
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) UNIQUE,
-    password VARCHAR(255),
-    email VARCHAR(255)
+    password VARCHAR(1024),
+    email VARCHAR(255) UNIQUE
 );
 
 CREATE Table Wishs(
