@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');    
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -59,7 +60,9 @@ router.post('/login', function (req, res) {
                         const validPass = bcrypt.compareSync(req.body.password, results[0].password);
                         if (!validPass) return res.status(400).send('Invalid password');
 
-                        res.send('logged in');
+                        // res.send('logged in');
+                        const token = jwt.sign({ _id: results[0].id}, process.env.SECRET_TOKEN);
+                        res.header('auth-token', token).send(token);
                     }
                     else res.send('Wrong email');
                 }
