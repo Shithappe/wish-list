@@ -10,6 +10,9 @@ app.use(bodyParser.json())
 const authRouter = require('./routers/auth.js');
 app.use('/api/user', authRouter);
 
+const wishRouter = require('./routers/wish.js');
+app.use('/api/wish', wishRouter);
+
 
 app.listen(port, () => {
   console.log(`Server running http://localhost:${port}`)
