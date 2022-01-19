@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import axios from 'axios';
+import Cookie from "js-cookie";
 
 export default function LoginForm(handleMode){
     const { register, handleSubmit } = useForm();
@@ -6,9 +8,16 @@ export default function LoginForm(handleMode){
         <div className="login addItemForm">
                     <form onSubmit={handleSubmit((data) => {
                         console.log(data);
+                        
+                        axios.post('http://localhost:8000/api/user/login/', {
+                            email: data.email,
+                            password: data.password
+                          })
+                          .then(function (response) { console.log(response.data); Cookie.set("Authorization", response.data);  window.location.assign('http://localhost:3000/home'); })
+                          .catch(function (error) { console.log(error); });
                     })}>
                         <h1>Login</h1>
-                        <input {...register("username", {required: "true"})} type='text' placeholder="Username" />
+                        <input {...register("email", {required: "true"})} type='email' placeholder="Username" />
                         <input {...register("password")} type='password' placeholder="Password" />
                         <input type='submit' value='Login' />
                         <div className='secondaryButtons'>

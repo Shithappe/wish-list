@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import axios from 'axios';
 
 export default function RegisterForm(handleMode){
     const { register, handleSubmit, formState: {errors}, watch } = useForm();
@@ -9,6 +10,13 @@ export default function RegisterForm(handleMode){
         <div className="addItemForm">
                     <form onSubmit={handleSubmit((data) => {
                         console.log(data);
+                        axios.post('http://localhost:8000/api/user/register/', {
+                            username: data.username,
+                            password: data.password,
+                            email: data.email
+                          })
+                          .then(function (response) { console.log(response); window.location.reload(); })
+                          .catch(function (error) { console.log(error); });
                     })}>
                         <h1>Register</h1>
                         <input {...register('username', {
