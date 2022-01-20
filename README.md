@@ -10,7 +10,7 @@ npm start
 
 ### Frontend:
 ```bash
-cd ../natural-disasters
+cd ../client
 npm i
 npm start
 ```
