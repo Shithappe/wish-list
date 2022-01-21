@@ -3,17 +3,17 @@ import { useForm } from "react-hook-form";
 import axios from 'axios';
 import Cookies from "js-cookie";
 
+let usernames = [];
 
 export default function ShareList() {
-
-    const { register, handleSubmit } = useForm();
 
     const [users, setUsers] = useState([]);
 
 
-    useEffect(() => {                   // some shit
-        async function fetchMyAPI() {
-        let response = await axios({
+    useEffect(() => {                   
+        // async function fetchMyAPI() {   // some shit
+        // let response = await
+        axios({
             method: 'get',
             url: "http://localhost:8000/api/wish/users",
             headers: {
@@ -22,64 +22,49 @@ export default function ShareList() {
             }
             })
             .then(function (response) {
-                let awd = response.data;
-                console.log(awd);
-                setUsers(awd);
-                
+                setUsers(response.data);
+                console.log('getting userList'); console.log(response.data);
+                usernames = response.data;
+                console.log(usernames);
+                console.log('show users');       console.log(users);
             })
             .catch(function (error) {
                 console.log(error);
             });
-        }
-    
-        fetchMyAPI()
-    }, [])
-
-    console.log("users:");console.log(users);
-      
-      var newArray1 = users.filter(function (el) {
-          return el.id >= 2; 
-        });
-        console.log(newArray1);
+        // }
+        // fetchMyAPI()
+    }, []);
 
 
     const [searchTerm, setSearchTerm] = React.useState("");
     const [searchResults, setSearchResults] = React.useState([]);
+    
     const handleChange = event => {
        setSearchTerm(event.target.value);
-     };
+    };
 
 
-    useEffect(() => {
+    var usernames = users.filter(function (el) {
+        return el.username.toLowerCase().includes(searchTerm.toLowerCase()) || el.email.toLowerCase().includes(searchTerm.toLowerCase()); 
+    });
+
+    // useEffect(() => {
         // const results = usernames.filter(person =>
         //   person.toLowerCase().includes(searchTerm.toLowerCase())
         // );
-        console.log(users);
-        const results = users.filter(function (el) {
-            return el.id >= 2; // Changed this so a home would match
-          });
-        console.log("res:");        console.log(results);
-        setSearchResults(results);
-    }, [searchTerm]);
-
-    // не получаю список юзеров...
-    // получить список всех юзеров, отфильтровать по части слова, и отрендерить по onChange
-    // никакая форма не нужна
-
-console.log(searchResults);
-
-
+        // const results = users.filter(function (el) {
+        //      return el.username.toLowerCase().includes(searchTerm.toLowerCase()) || el.email.toLowerCase().includes(searchTerm.toLowerCase()); 
+        //   });
+        // setSearchResults(results);
+    // }, [searchTerm]);
 
     return(
         <div className="styleFrom shareList">
 
-            <form onSubmit={
-                handleSubmit((data) => {
-                console.log(data);
-            })}>
-                <input {...register("Search", {required: "true"})} type='text' placeholder="Search user" />
+            <form>
+                <input type='text' placeholder="Search user"  value={searchTerm} onChange={handleChange} />
 
-                { users.map((user) =>  
+                { usernames.map((user) =>  
                     <div className='userList' key={user.id}>
                         <div>
                             <b>{user.username}</b>
@@ -106,19 +91,7 @@ console.log(searchResults);
                         </button>
                     </div>
                 )}
-
-
-                {/* example */}
-                    <input type="text" placeholder="Search" value={searchTerm} onChange={handleChange} />
-                    <ul>
-                        {searchResults.map(item => (
-                        <li>{item}</li>
-                        ))}
-                    </ul>
-                {/* end */}
-
             </form>
-            <br/>
         </div>
     )
 }
