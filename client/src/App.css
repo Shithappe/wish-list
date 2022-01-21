@@ -50,22 +50,22 @@ body{
   margin: 0 10px;
 }
 
-.addItemForm{
+.centeringFrom{
   z-index: 2;
-    position: absolute;
-    display: block;
-    top:40%;
-    left:50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  display: block;
+  top:40%;
+  left:50%;
+  transform: translate(-50%, -50%);
 }
-
-.addItemForm form{
+  
+.styleFrom form{
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
   width: 45vh;
-
+  
   text-shadow: 4px 2px 20px rgba(150, 150, 150, 1);
   padding: 20px;
   z-index: 1;
@@ -75,7 +75,7 @@ body{
   box-shadow: 6px 6px 12px 2px rgba(34, 60, 80, 0.3);
 }
 
-.addItemForm input[type='text'], [type='email'], [type='password']{
+.styleFrom input[type='text'], [type='email'], [type='password']{
   margin: 5px;
   padding: 10px;
   border: none;
@@ -85,7 +85,7 @@ body{
   font-size: larger;
 }
 
-.addItemForm input[type='text']:focus{
+.styleFrom input[type='text']:focus{
   border-bottom: 1px solid black;
   color: black;
 }
@@ -167,7 +167,6 @@ span{
 }
 
 .tipInForm{
-  /* text-decoration: overline; */
   width: 80%;
   margin: -0.7em auto -0.5em;
   overflow: hidden;
@@ -176,4 +175,37 @@ span{
   color: red;
   background: none;
   border-top: 3px solid red;
+}
+
+.shareList{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.userList{
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  width: 350px;
+  border-radius: 8px;
+  margin: 40px 10px 0;
+  padding: 10px;
+}
+
+.userList b{
+  font-size: 19px;
+}
+
+.userList button{
+  opacity: 0;
+}
+
+.userList:hover button{
+  transition: 1s;
+  opacity: 1;
+}
+
+.userList:hover{
+  box-shadow: 6px 6px 12px 2px rgba(34, 60, 80, 0.3);
 }

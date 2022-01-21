@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Wish from '../components/Wish.js'
 // import Notification from '../components/Notification.js'
-// import ShareList from './ShareList.js'
+import ShareList from '../components/ShareList.js';
 import AddItemForm from '../components/AddItemForm.js'
 
 import axios from 'axios';
@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 
 export default function Home() {
 
+    const [switchShareWish, setSwitchShareWish] = useState(false); //switch for showing the form addWish
     const [wish, setWish] = useState(false); //switch for showing the form addWish
     const [data, setData] = useState([]);
 
@@ -29,11 +30,9 @@ export default function Home() {
           });
     }, [])
 
-  console.log(data);
 
     function addWish(item){
         data.push(item);
-        console.log(data);
     }
 
     function Nav(){
@@ -43,7 +42,7 @@ export default function Home() {
                     <h1>Wish List<span>.react</span> </h1>
                     <button onClick={() => setWish(true)}>Add wish</button>
                 </div>
-                <button>Share wish</button>
+                <button onClick={() => {setSwitchShareWish(!switchShareWish)}}>Share wish</button>
             </div>
         )
     }
@@ -60,6 +59,8 @@ export default function Home() {
                             addWish={ (item) => { addWish(item) }} 
                         /> 
             }
+
+            { switchShareWish && <ShareList /> }
 
             { data.map((data) =>  <Wish key={data.id} data={data}/>) }
         </div>

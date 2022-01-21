@@ -5,7 +5,7 @@ import Cookie from "js-cookie";
 export default function LoginForm(handleMode){
     const { register, handleSubmit } = useForm();
     return(
-        <div className="login addItemForm">
+        <div className="login centeringFrom styleFrom ">
                     <form onSubmit={handleSubmit((data) => {
                         console.log(data);
                         

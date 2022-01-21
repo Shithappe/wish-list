@@ -7,7 +7,7 @@ export default function RegisterForm(handleMode){
     const cPass = watch('comfPass');
 
     return(
-        <div className="addItemForm">
+        <div className="centeringFrom styleFrom">
                     <form onSubmit={handleSubmit((data) => {
                         console.log(data);
                         axios.post('http://localhost:8000/api/user/register/', {

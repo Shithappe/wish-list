@@ -6,7 +6,7 @@ export default function AddItemForm(handleWish) {
     const { register, handleSubmit, formState: {errors} } = useForm();
 
     return (
-        <div className="addItemForm">
+        <div className="centeringFrom styleFrom">
             <form onSubmit={handleSubmit((data) => {
                     axios.post('http://localhost:8000/api/wish/add/', {
                         name: data.name,
