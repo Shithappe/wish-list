@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useForm } from "react-hook-form";
 import axios from 'axios';
 import Cookies from "js-cookie";
 
@@ -23,10 +22,7 @@ export default function ShareList() {
             })
             .then(function (response) {
                 setUsers(response.data);
-                console.log('getting userList'); console.log(response.data);
                 usernames = response.data;
-                console.log(usernames);
-                console.log('show users');       console.log(users);
             })
             .catch(function (error) {
                 console.log(error);
