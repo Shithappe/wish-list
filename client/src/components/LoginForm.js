@@ -13,7 +13,7 @@ export default function LoginForm(handleMode){
                             email: data.email,
                             password: data.password
                           })
-                          .then(function (response) { console.log(response.data); Cookie.set("Authorization", response.data);  window.location.assign('http://localhost:3000/home'); })
+                          .then(function (response) { Cookie.set("Authorization", response.data.token);  Cookie.set("id", response.data.id); window.location.assign('http://localhost:3000/home'); })
                           .catch(function (error) { console.log(error); });
                     })}>
                         <h1>Login</h1>

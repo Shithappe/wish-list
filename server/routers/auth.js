@@ -61,7 +61,7 @@ router.post('/login', function (req, res) {
                         if (!validPass) return res.status(400).send('Invalid password');
 
                         const token = jwt.sign({ _id: results[0].id}, process.env.SECRET_TOKEN);
-                        res.header('Authorization', token).send(token);
+                        res.header('Authorization', token).send({ id: results[0].id, token: token});
                     }
                     else res.send('Wrong email');
                 }

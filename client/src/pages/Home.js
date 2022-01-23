@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Wish from '../components/Wish.js'
+import OtherWish from '../components/OtherWish.js'
 import Notification from '../components/Notification.js'
 import ShareList from '../components/ShareList.js';
 import AddItemForm from '../components/AddItemForm.js'
@@ -12,6 +13,10 @@ export default function Home() {
     const [switchShareWish, setSwitchShareWish] = useState(false); //switch for showing the form addWish
     const [wish, setWish] = useState(false); //switch for showing the form addWish
     const [data, setData] = useState([]);
+    // let otherwish = [];
+    const [mywish, setMywish] = useState([]);
+    const [otherwish, setOtherwish] = useState([]);
+    const [id, setId] = useState(Cookies.get('id'));
 
       useEffect(() => {
         axios({
@@ -23,7 +28,15 @@ export default function Home() {
           }
         })
         .then(function (response) {
-            setData(response.data)
+            setData(response.data);
+            let mywishtemp = [];
+            let otherwishtemp = [];
+            response.data.forEach(element => {
+                if (element.user_id != id) otherwishtemp.push(element);
+                else mywishtemp.push(element);
+            });
+            setMywish(mywishtemp)
+            setOtherwish(otherwishtemp)
         })
         .catch(function (error) {
             console.log(error);
@@ -64,7 +77,9 @@ export default function Home() {
 
             { switchShareWish && <ShareList /> }
 
-            { data.map((data) =>  <Wish key={data.id} data={data}/>) }
+            { mywish.map((mywish) =>  <Wish key={mywish.id} data={mywish}/>) }
+            { otherwish[0] && <hr/>}
+            { otherwish && otherwish.map((otherwish) => <OtherWish key={otherwish.id} data={otherwish}/>) }
         </div>
     )
 }

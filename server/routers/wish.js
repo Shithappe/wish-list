@@ -12,12 +12,11 @@ const wishSchema = Joi.object({
 
 
 router.get('/', verify, (req, res) => {
-
     try{
         connection.query(
-            `SELECT id, name, link, price from wishs WHERE user_id = ${req.user._id}
+            `SELECT id, name, link, price, user_id from wishs WHERE user_id = ${req.user._id}
             UNION
-            SELECT wishs.id, name, link, price FROM wishs join share on wishs.user_id = share.sender_id WHERE recipient_id = ${req.user._id} AND accepted = 1;`,
+            SELECT wishs.id, name, link, price, user_id FROM wishs join share on wishs.user_id = share.sender_id WHERE recipient_id = ${req.user._id} AND accepted = 1;`,
             function(err, result) {
                 if (!err) {
                     res.status(200).send(result);
@@ -64,11 +63,9 @@ router.post('/add', verify, (req, res) => {
     catch(err){
         res.status(400).send(err);
     }
-
 })
 
 router.post('/share', verify, (req, res) => {
-
     try{
         connection.query(
             `INSERT INTO share (sender_id, recipient_id) VALUES ('${req.user._id}', '${req.body.recipient_id}');`,
@@ -85,7 +82,6 @@ router.post('/share', verify, (req, res) => {
 })
 
 router.patch('/share', verify, (req, res) => {
-
     try{
         connection.query(
             `UPDATE share SET accepted = ${req.body.accepted} WHERE recipient_id = ${req.user._id} AND sender_id = ${req.body.sender_id}`,
@@ -102,7 +98,6 @@ router.patch('/share', verify, (req, res) => {
 })
 
 router.get('/notification', verify, (req, res) => {
-
     try{
         connection.query(
             `select u.id, username, email from users u join share s on (u.id=s.sender_id) where s.recipient_id = ${req.user._id} and s.accepted = 0;`,

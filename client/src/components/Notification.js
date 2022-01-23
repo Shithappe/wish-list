@@ -16,10 +16,7 @@ export default function Notification() {
             }
         })
         .then(function (response) {
-            console.log(response.data);
             setUsername(response.data);
-            console.log(username);
-            console.log(username[0].username);
         })
         .catch(function (error) {
             console.log(error);
