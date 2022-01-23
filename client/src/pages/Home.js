@@ -9,11 +9,11 @@ import axios from 'axios';
 import Cookies from "js-cookie";
 
 export default function Home() {
+    if (!Cookies.get('id')) window.location.assign('http://localhost:3000/auth');
 
     const [switchShareWish, setSwitchShareWish] = useState(false); //switch for showing the form addWish
     const [wish, setWish] = useState(false); //switch for showing the form addWish
     const [data, setData] = useState([]);
-    // let otherwish = [];
     const [mywish, setMywish] = useState([]);
     const [otherwish, setOtherwish] = useState([]);
     const [id, setId] = useState(Cookies.get('id'));
