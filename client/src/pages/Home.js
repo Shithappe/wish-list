@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Wish from '../components/Wish.js'
-// import Notification from '../components/Notification.js'
+import Notification from '../components/Notification.js'
 import ShareList from '../components/ShareList.js';
 import AddItemForm from '../components/AddItemForm.js'
 
@@ -53,6 +53,8 @@ export default function Home() {
     return (
         <div className='main'>
             <Nav/>
+            
+            <Notification/>
 
             { wish && <AddItemForm 
                             handleWish={(value) => { setWish(value) }} 

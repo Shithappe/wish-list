@@ -10,11 +10,14 @@ const wishSchema = Joi.object({
     price: Joi.string()
 });
 
+
 router.get('/', verify, (req, res) => {
+
     try{
         connection.query(
-            // `SELECT * FROM WISHS WHERE user_id = ${req.user._id};`,
-            `SELECT * from wishs WHERE user_id = ${req.user._id} UNION SELECT * from wishs WHERE user_id = (select sender_id from share WHERE recipient_id = ${req.user._id});`,
+            `SELECT id, name, link, price from wishs WHERE user_id = ${req.user._id}
+            UNION
+            SELECT wishs.id, name, link, price FROM wishs join share on wishs.user_id = share.sender_id WHERE recipient_id = ${req.user._id} AND accepted = 1;`,
             function(err, result) {
                 if (!err) {
                     res.status(200).send(result);
@@ -27,10 +30,10 @@ router.get('/', verify, (req, res) => {
     }
 });
 
-router.get('/users', verify, (req, res) => { // нужно исключить свой же id (что бы нельзя было отправить самому себе запрос)
+router.get('/users', verify, (req, res) => { 
     try{
         connection.query(
-            `select id, username, email from users;`,
+            `select id, username, email from users where id != ${req.user._id};`, // нужно исключить свой же id (что бы нельзя было отправить самому себе запрос) +
             function(err, result) {
                 if (!err) {
                     res.status(200).send(result);
@@ -79,7 +82,40 @@ router.post('/share', verify, (req, res) => {
     catch(err){
         res.status(400).send(err);
     }
+})
 
+router.patch('/share', verify, (req, res) => {
+
+    try{
+        connection.query(
+            `UPDATE share SET accepted = ${req.body.accepted} WHERE recipient_id = ${req.user._id} AND sender_id = ${req.body.sender_id}`,
+            function(err) {
+                if (!err) {
+                    res.sendStatus(200);
+                }
+            }
+        );
+    }
+    catch(err){
+        res.status(400).send(err);
+    }
+})
+
+router.get('/notification', verify, (req, res) => {
+
+    try{
+        connection.query(
+            `select u.id, username, email from users u join share s on (u.id=s.sender_id) where s.recipient_id = ${req.user._id} and s.accepted = 0;`,
+            function(err, result) {
+                if (!err) {
+                    res.status(200).send(result);
+                }
+            }
+        );
+    }
+    catch(err){
+        res.status(400).send(err);
+    }
 })
 
 module.exports = router

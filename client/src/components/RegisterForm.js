@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 export default function RegisterForm(handleMode){
     const { register, handleSubmit, formState: {errors}, watch } = useForm();
@@ -10,13 +11,21 @@ export default function RegisterForm(handleMode){
         <div className="centeringFrom styleFrom">
                     <form onSubmit={handleSubmit((data) => {
                         console.log(data);
-                        axios.post('http://localhost:8000/api/user/register/', {
+                        axios({
+                            method: 'post',
+                            url: 'http://localhost:8000/api/user/register/', 
+                            data: {
                             username: data.username,
                             password: data.password,
                             email: data.email
-                          })
-                          .then(function (response) { console.log(response); window.location.reload(); })
-                          .catch(function (error) { console.log(error); });
+                          },
+                          headers: {
+                            "Authorization": Cookies.get('Authorization'),
+                            'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(function (response) { console.log(response); window.location.reload(); })
+                        .catch(function (error) { console.log(error); });
                     })}>
                         <h1>Register</h1>
                         <input {...register('username', {

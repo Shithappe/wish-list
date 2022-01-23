@@ -17,7 +17,7 @@ export default function LoginForm(handleMode){
                           .catch(function (error) { console.log(error); });
                     })}>
                         <h1>Login</h1>
-                        <input {...register("email", {required: "true"})} type='email' placeholder="Username" />
+                        <input {...register("email", {required: "true"})} type='email' placeholder="E-mail" />
                         <input {...register("password")} type='password' placeholder="Password" />
                         <input type='submit' value='Login' />
                         <div className='secondaryButtons'>
