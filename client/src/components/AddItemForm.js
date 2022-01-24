@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import axios from 'axios';
 import Cookies from "js-cookie";
 
-export default function AddItemForm(handleWish) {
+export default function AddItemForm({handleWish, addWish}) {
     const { register, handleSubmit, formState: {errors} } = useForm();
 
     return (
@@ -22,8 +22,8 @@ export default function AddItemForm(handleWish) {
                       .then(function (response) { console.log(response.data); })
                       .catch(function (error) { console.log(error); });
 
-                    handleWish.addWish(data);
-                    handleWish.handleWish(false);
+                    addWish(data);
+                    handleWish(false);
                     })}>
                 <h2>Add Wish</h2>
                 <input {...register('name', {required: "This is required"})} type='text' placeholder="Name"/>

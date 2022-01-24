@@ -45,7 +45,7 @@ export default function Home() {
 
 
     function addWish(item){
-        data.push(item);
+        mywish.push(item);
     }
 
     function Nav(){
