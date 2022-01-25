@@ -15,21 +15,25 @@ export default function LoginForm(handleMode){
                             email: data.email,
                             password: data.password
                           })
-                          .then(function (response) { Cookie.set("Authorization", response.data.token);  Cookie.set("id", response.data.id); window.location.assign('http://localhost:3000/home'); })
+                          .then(function (response) { 
+                              Cookie.set("Authorization", response.data.token);
+                              Cookie.set("id", response.data.id); 
+                              console.log('loggin');
+                              console.log(response.data);
+                              console.log(response.status);
+                            //   window.location.assign('http://localhost:3000/home'); 
+                            })
                           .catch(await function (error) { 
-                              console.log(error);
-                              if (error.response.status === 401) {
-                              setInvalidData('Incorrect password');
-                                alert(InvalidData[0])
-                            }
-                                console.log(InvalidData);
+                              setInvalidData(error.response.data)
                             });
                     })}>
                         <h1>Login</h1>
                         <input {...register("email", {required: "true"})} type='email' placeholder="E-mail" />
+                        { InvalidData.email && <p className='tipInForm'>{InvalidData.email}</p>}
                         <input {...register("password")} type='password' placeholder="Password" />
                         {console.log(InvalidData)}
-                        { InvalidData && <p className='tipInForm'>{InvalidData}</p>}
+                        { InvalidData.password && <p className='tipInForm'>{InvalidData.password}</p>}
+                        <br/>
                         <input type='submit' value='Login' />
                         <div className='secondaryButtons'>
                             <button onClick={() => handleMode.handleMode('register')}>Register</button>

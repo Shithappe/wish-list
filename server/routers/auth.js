@@ -56,14 +56,15 @@ router.post('/login', function (req, res) {
             `SELECT * FROM users WHERE email = '${req.body.email}';`,
             function(err, results) {
                 if (!err) {
-                    if (results.length !== 0) {
+                    if (results.length === 0) res.status(401).send({email: 'Wrong email'});
+                    else{
                         const validPass = bcrypt.compareSync(req.body.password, results[0].password);
-                        if (!validPass) return res.status(400).send('Invalid password');
+                        if (!validPass) return res.status(401).send({password: 'Invalid password'});
 
                         const token = jwt.sign({ _id: results[0].id}, process.env.SECRET_TOKEN);
                         res.header('Authorization', token).send({ id: results[0].id, token: token});
                     }
-                    else res.send('Wrong email');
+                    
                 }
             }
         );
