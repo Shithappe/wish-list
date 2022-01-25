@@ -2,11 +2,10 @@ import { useForm } from "react-hook-form";
 import axios from 'axios';
 import Cookies from "js-cookie";
 
-export default function EditItemForm(props) {
+export default function EditItemForm({ data, handlEdit, update}) {
     const { register, handleSubmit, formState: {errors} } = useForm();
 
-
-    console.log(props);
+    console.log(update);
 
     return (
         <div className="centeringFrom styleFrom">
@@ -15,7 +14,7 @@ export default function EditItemForm(props) {
                     
 
                     // addWish(data);
-                    props.handlEdit(false);
+                    handlEdit(false);
                     })}>
                 <h2>Add Wish</h2>
                 <input {...register('name', {required: "This is required"})} type='text' placeholder="Name"/>
@@ -26,14 +25,14 @@ export default function EditItemForm(props) {
 
                 <div className="formButtons">
                     <input type='submit' value='Update'/>
-                    <input onClick={() => props.handlEdit(false)} type='button' value='Cancel'/>
+                    <input onClick={() => handlEdit(false)} type='button' value='Cancel'/>
                 </div>
                 <button className="deleteButton" onClick={() =>
                    axios({
                     method: 'delete',
                     url: "http://localhost:8000/api/wish/",
                     data: {
-                        id: props.data.id
+                        id: data.id
                     },
                     headers: {
                         "Authorization": Cookies.get('Authorization'),
@@ -42,7 +41,8 @@ export default function EditItemForm(props) {
                     })
                     .then(function (response) {
                        console.log(response);
-                       props.handlEdit(false);
+                       handlEdit(false);
+                       update();
                     })
                     .catch(function (error) {
                         console.log(error);

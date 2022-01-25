@@ -10,6 +10,7 @@ export default function Wish(props) {
             { edit && <EditItemForm
                         handlEdit={(value) => { setEdit(value) }} 
                         data={props.data} 
+                        update = { () => props.update() }
                     />}
             <div>
                 <h3>{props.data.name}</h3>

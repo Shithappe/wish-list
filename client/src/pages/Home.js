@@ -81,7 +81,7 @@ export default function Home() {
 
             { switchShareWish && <ShareList /> }
 
-            { mywish.map((mywish) =>  <Wish key={mywish.id} data={mywish}/>) }
+            { mywish.map((mywish) =>  <Wish key={mywish.id} data={mywish} update={() => addWish()}/>) }
             { otherwish[0] && <hr/>}
             { otherwish && otherwish.map((otherwish) => <OtherWish key={otherwish.id} data={otherwish}/>) }
         </div>
