@@ -5,16 +5,34 @@ import Cookies from "js-cookie";
 export default function EditItemForm({ data, handlEdit, update}) {
     const { register, handleSubmit, formState: {errors} } = useForm();
 
-    console.log(update);
-
     return (
         <div className="centeringFrom styleFrom">
-            <form onSubmit={handleSubmit((data) => {
+            <form onSubmit={handleSubmit((dataFrom) => {
                     console.log(data);
                     
-
-                    // addWish(data);
-                    handlEdit(false);
+                    axios({
+                        method: 'patch',
+                        url: "http://localhost:8000/api/wish/",
+                        data: {
+                            id: data.id,
+                            name: dataFrom.name,
+                            link: dataFrom.link,
+                            price: dataFrom.price
+                        },
+                        headers: {
+                            "Authorization": Cookies.get('Authorization'),
+                            'Content-Type': 'application/json'
+                        }
+                        })
+                        .then(function (response) {
+                           console.log(response);
+                           handlEdit(false);
+                           update();
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                    
                     })}>
                 <h2>Add Wish</h2>
                 <input {...register('name', {required: "This is required"})} type='text' placeholder="Name"/>

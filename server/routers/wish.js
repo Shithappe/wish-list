@@ -32,7 +32,7 @@ router.get('/', verify, (req, res) => {
 router.patch('/', verify, (req, res) => {
     try{
         connection.query(
-            `UPDATE wishs SET name = ${req.body.name}, link = ${req.body.lick}, price = ${req.body.price} WHERE id = ${req.body.id}`,
+            `UPDATE wishs SET name = ${req.body.name}, link = ${req.body.link}, price = ${req.body.price} WHERE id = ${req.body.id}`,
             function(err) {
                 if (!err) {
                     res.sendStatus(200);
