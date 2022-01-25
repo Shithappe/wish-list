@@ -18,34 +18,36 @@ export default function Home() {
     const [otherwish, setOtherwish] = useState([]);
     const [id, setId] = useState(Cookies.get('id'));
 
-      useEffect(() => {
-        axios({
-          method: 'get',
-          url: "http://localhost:8000/api/wish/",
-          headers: {
-            "Authorization": Cookies.get('Authorization'),
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(function (response) {
-            setData(response.data);
-            let mywishtemp = [];
-            let otherwishtemp = [];
-            response.data.forEach(element => {
-                if (element.user_id != id) otherwishtemp.push(element);
-                else mywishtemp.push(element);
-            });
-            setMywish(mywishtemp)
-            setOtherwish(otherwishtemp)
-        })
-        .catch(function (error) {
-            console.log(error);
-          });
-    }, [])
-
+    function getWish(){
+        // useEffect(() => {
+            axios({
+              method: 'get',
+              url: "http://localhost:8000/api/wish/",
+              headers: {
+                "Authorization": Cookies.get('Authorization'),
+                'Content-Type': 'application/json'
+              }
+            })
+            .then(function (response) {
+                setData(response.data);
+                let mywishtemp = [];
+                let otherwishtemp = [];
+                response.data.forEach(element => {
+                    if (element.user_id != id) otherwishtemp.push(element);
+                    else mywishtemp.push(element);
+                });
+                setMywish(mywishtemp)
+                setOtherwish(otherwishtemp)
+            })
+            .catch(function (error) {
+                console.log(error);
+              });
+        // }, [])
+    }
 
     function addWish(item){
-        mywish.push(item);
+        // mywish.push(item);
+        getWish();
     }
 
     function Nav(){
@@ -60,14 +62,16 @@ export default function Home() {
         )
     }
 
-    
-    
+    useEffect(() => {
+        getWish();
+    }, [])
     
     return (
         <div className='main'>
             <Nav/>
             
             <Notification/>
+
 
             { wish && <AddItemForm 
                             handleWish={(value) => { setWish(value) }} 

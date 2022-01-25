@@ -108,6 +108,33 @@ body{
   box-shadow: 6px 6px 12px 2px rgba(34, 60, 80, 0.3);
 }
 
+.listItem div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.listItem button{
+  border-radius: 50%;
+  background: none;
+  width: 43px;
+  height: 43px;
+}
+
+svg{
+  fill: #c7c7c7;
+}
+
+svg:hover{
+  fill: rgb(53, 53, 53);
+}
+
+.listItem h4{
+  padding-top: 0;
+  margin-top: 0;
+}
+
 .doneButton{
   border: none;
   width: 25px;
@@ -215,4 +242,8 @@ span{
 
 hr{
   color: #8e8e8e;
+}
+
+.editButton{
+  right: 5px;
 }

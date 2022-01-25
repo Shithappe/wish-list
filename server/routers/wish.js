@@ -29,6 +29,38 @@ router.get('/', verify, (req, res) => {
     }
 });
 
+router.patch('/', verify, (req, res) => {
+    try{
+        connection.query(
+            `UPDATE wishs SET name = ${req.body.name}, link = ${req.body.lick}, price = ${req.body.price} WHERE id = ${req.body.id}`,
+            function(err) {
+                if (!err) {
+                    res.sendStatus(200);
+                }
+            }
+        );
+    }
+    catch(err){
+        res.status(400).send(err);
+    }
+});
+
+router.delete('/', verify, (req, res) => {
+    try{
+        connection.query(
+            `DELETE FROM WISHS WHERE id = ${req.body.id}`,
+            function(err) {
+                if (!err) {
+                    res.sendStatus(203);
+                }
+            }
+        );
+    }
+    catch(err){
+        res.status(400).send(err);
+    }
+});
+
 router.get('/users', verify, (req, res) => { 
     try{
         connection.query(

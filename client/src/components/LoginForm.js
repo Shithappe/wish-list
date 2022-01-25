@@ -18,10 +18,7 @@ export default function LoginForm(handleMode){
                           .then(function (response) { 
                               Cookie.set("Authorization", response.data.token);
                               Cookie.set("id", response.data.id); 
-                              console.log('loggin');
-                              console.log(response.data);
-                              console.log(response.status);
-                            //   window.location.assign('http://localhost:3000/home'); 
+                              window.location.assign('http://localhost:3000/home'); 
                             })
                           .catch(await function (error) { 
                               setInvalidData(error.response.data)
