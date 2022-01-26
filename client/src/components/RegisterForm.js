@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
-import axios from 'axios';
-import Cookies from "js-cookie";
+import { registration } from "../services/services";
 
 export default function RegisterForm(handleMode){
     const { register, handleSubmit, formState: {errors}, watch } = useForm();
@@ -8,24 +7,10 @@ export default function RegisterForm(handleMode){
     const cPass = watch('comfPass');
 
     return(
-        <div className="centeringFrom styleFrom">
+        <div className="centeringForm styleFrom">
                     <form onSubmit={handleSubmit((data) => {
-                        axios({
-                            method: 'post',
-                            url: 'http://localhost:8000/api/user/register/', 
-                            data: {
-                            username: data.username,
-                            password: data.password,
-                            email: data.email
-                          },
-                          headers: {
-                            "Authorization": Cookies.get('Authorization'),
-                            'Content-Type': 'application/json'
-                            }
-                        })
-                        .then(function () { window.location.reload(); })
-                        .catch(function (error) { console.log(error); });
-                    })}>
+                        registration(data);
+                    })}> й
                         <h1>Register</h1>
                         <input {...register('username', {
                                 required: "This is required", 

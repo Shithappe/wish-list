@@ -1,28 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Cookies from "js-cookie";
+import { getNotification, acceptShare } from '../services/services';
 
 export default function Notification() {
 
     const [username, setUsername] = useState([]);
 
-    useEffect(() => {                   
-        axios({
-            method: 'get',
-            url: "http://localhost:8000/api/wish/notification",
-            headers: {
-                "Authorization": Cookies.get('Authorization'),
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(function (response) {
-            setUsername(response.data);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }, []);
-
+    async function fetchNotification() {
+        const notification = await getNotification();
+        setUsername(notification);
+    }
+    
+    useEffect(() => {
+        fetchNotification();
+    }, [])
 
 
     return (
@@ -36,25 +26,7 @@ export default function Notification() {
                             <br/>
                              gave you access to his list</p>
             <div className="formButtons">
-            <button onClick={ () => 
-                            axios({
-                                method: 'patch',
-                                url: "http://localhost:8000/api/wish/share",
-                                data: {
-                                    sender_id: user.id,
-                                    accepted: 1
-                                },
-                                headers: {
-                                    "Authorization": Cookies.get('Authorization'),
-                                    'Content-Type': 'application/json'
-                                }
-                                })
-                                .then(function (response) {
-                                    console.log(response); // сюда прокинуть закрытие блока
-                                })
-                                .catch(function (error) {console.log(error)})
-                            }>Accept
-                        </button>
+                <button onClick={ () => acceptShare(user.id) }>Accept</button>
                 <button>Cancel</button>
             </div>
         </div>

@@ -1,35 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Cookies from "js-cookie";
+import { getUserList, shareWish } from '../services/services';
 
-let usernames = [];
 
 export default function ShareList() {
 
     const [users, setUsers] = useState([]);
 
-
-    useEffect(() => {                   
-        axios({
-            method: 'get',
-            url: "http://localhost:8000/api/wish/users",
-            headers: {
-                "Authorization": Cookies.get('Authorization'),
-                'Content-Type': 'application/json'
-            }
-            })
-            .then(function (response) {
-                setUsers(response.data);
-                usernames = response.data;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
+    async function fetchUsers() {
+        const users = await getUserList();
+        setUsers(users);
+        usernames = users;
+    }
+    
+    useEffect(() => {
+        fetchUsers();
+    }, [])
 
 
-    const [searchTerm, setSearchTerm] = React.useState("");
-    const [searchResults, setSearchResults] = React.useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
     
     const handleChange = event => {
        setSearchTerm(event.target.value);
@@ -54,21 +42,8 @@ export default function ShareList() {
                             <span>{user.email}</span>
                         </div>
                         <button onClick={ () => 
-                            axios({
-                                method: 'post',
-                                url: "http://localhost:8000/api/wish/share",
-                                data: {
-                                    recipient_id: user.id
-                                },
-                                headers: {
-                                    "Authorization": Cookies.get('Authorization'),
-                                    'Content-Type': 'application/json'
-                                }
-                                })
-                                .then(function () {
-                                     // close block 
-                                })
-                                .catch(function (error) {console.log(error)})
+                            shareWish(user.id)
+                            
                             }>Share
                         </button>
                     </div>

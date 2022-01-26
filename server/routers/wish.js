@@ -64,7 +64,7 @@ router.delete('/', verify, (req, res) => {
 router.get('/users', verify, (req, res) => { 
     try{
         connection.query(
-            `select id, username, email from users where id != ${req.user._id};`, // нужно исключить свой же id (что бы нельзя было отправить самому себе запрос) +
+            `select id, username, email from users where id != ${req.user._id};`,
             function(err, result) {
                 if (!err) {
                     res.status(200).send(result);

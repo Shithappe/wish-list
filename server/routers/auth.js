@@ -8,7 +8,7 @@ dotenv.config();
 const connection = require('../database/connectDB');
 
 const schema = Joi.object({
-    username: Joi.string().min(6).required(),
+    username: Joi.string().min(3).required(),
     password: Joi.string().min(6).required(),
     email: Joi.string().min(6).required().email()
 });
@@ -20,9 +20,10 @@ const loginSchema = Joi.object({
 
 
 router.post('/register', async function (req, res) {
+    console.log(req.body)
 
     const validation = schema.validate(req.body);
-    if (validation.error) return res.status(422).send(validation.error.details[0].message);
+    if (validation.error) return res.status(420).send(validation.error.details[0].message);
 
     try{
         const salt = await bcrypt.genSaltSync(10);

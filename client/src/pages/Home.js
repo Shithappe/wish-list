@@ -46,13 +46,13 @@ export default function Home() {
 
             { wish && <AddItemForm 
                             handleWish={(value) => { setWish(value) }} 
-                            addWish={ () => { fetchData() }} 
+                            refreshWishes={ () => { fetchData() }} 
                         /> 
             }
 
             { switchShareWish && <ShareList /> } 
 
-            { data.myMwishes && data.myMwishes.map((item) =>  <Wish key={item.id} data={item} update={() => fetchData()}/>) }
+            { data.myWishes && data.myWishes.map((item) =>  <Wish key={item.id} data={item} update={() => fetchData()}/>) }
             { data.otherWishes && <hr/>}
             { data.otherWishes && data.otherWishes.map((otherwish) => <OtherWish key={otherwish.id} data={otherwish}/>) }
         </div>
