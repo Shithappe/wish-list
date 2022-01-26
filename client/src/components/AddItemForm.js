@@ -19,11 +19,10 @@ export default function AddItemForm({handleWish, addWish}) {
                             'Content-Type': 'application/json'
                           }
                       })
-                      .then(function (response) { console.log(response.data); })
+                      .then(function () { handleWish(false); })
                       .catch(function (error) { console.log(error); });
 
                     addWish(data);
-                    handleWish(false);
                     })}>
                 <h2>Add Wish</h2>
                 <input {...register('name', {required: "This is required"})} type='text' placeholder="Name"/>

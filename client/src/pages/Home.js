@@ -5,50 +5,25 @@ import Notification from '../components/Notification.js'
 import ShareList from '../components/ShareList.js';
 import AddItemForm from '../components/AddItemForm.js'
 
-import axios from 'axios';
+import { getWish } from '../services/services';
 import Cookies from "js-cookie";
+
 
 export default function Home() {
     if (!Cookies.get('id')) window.location.assign('http://localhost:3000/auth');
 
     const [switchShareWish, setSwitchShareWish] = useState(false); //switch for showing the form addWish
     const [wish, setWish] = useState(false); //switch for showing the form addWish
-    const [data, setData] = useState([]);
-    const [mywish, setMywish] = useState([]);
-    const [otherwish, setOtherwish] = useState([]);
-    const [id, setId] = useState(Cookies.get('id'));
+    const [data, setData] = useState({});
 
-    function getWish(){
-        // useEffect(() => {
-            axios({
-              method: 'get',
-              url: "http://localhost:8000/api/wish/",
-              headers: {
-                "Authorization": Cookies.get('Authorization'),
-                'Content-Type': 'application/json'
-              }
-            })
-            .then(function (response) {
-                setData(response.data);
-                let mywishtemp = [];
-                let otherwishtemp = [];
-                response.data.forEach(element => {
-                    if (element.user_id != id) otherwishtemp.push(element);
-                    else mywishtemp.push(element);
-                });
-                setMywish(mywishtemp)
-                setOtherwish(otherwishtemp)
-            })
-            .catch(function (error) {
-                console.log(error);
-              });
-        // }, [])
+    async function fetchData() {
+        const wishes = await getWish();
+        setData(wishes);
     }
-
-    function addWish(item){
-        // mywish.push(item);
-        getWish();
-    }
+    
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     function Nav(){
         return(
@@ -61,10 +36,6 @@ export default function Home() {
             </div>
         )
     }
-
-    useEffect(() => {
-        getWish();
-    }, [])
     
     return (
         <div className='main'>
@@ -75,15 +46,15 @@ export default function Home() {
 
             { wish && <AddItemForm 
                             handleWish={(value) => { setWish(value) }} 
-                            addWish={ (item) => { addWish(item) }} 
+                            addWish={ () => { fetchData() }} 
                         /> 
             }
 
-            { switchShareWish && <ShareList /> }
+            { switchShareWish && <ShareList /> } 
 
-            { mywish.map((mywish) =>  <Wish key={mywish.id} data={mywish} update={() => addWish()}/>) }
-            { otherwish[0] && <hr/>}
-            { otherwish && otherwish.map((otherwish) => <OtherWish key={otherwish.id} data={otherwish}/>) }
+            { data.myMwishes && data.myMwishes.map((item) =>  <Wish key={item.id} data={item} update={() => fetchData()}/>) }
+            { data.otherWishes && <hr/>}
+            { data.otherWishes && data.otherWishes.map((otherwish) => <OtherWish key={otherwish.id} data={otherwish}/>) }
         </div>
     )
 }

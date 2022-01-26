@@ -10,7 +10,6 @@ export default function RegisterForm(handleMode){
     return(
         <div className="centeringFrom styleFrom">
                     <form onSubmit={handleSubmit((data) => {
-                        console.log(data);
                         axios({
                             method: 'post',
                             url: 'http://localhost:8000/api/user/register/', 
@@ -24,7 +23,7 @@ export default function RegisterForm(handleMode){
                             'Content-Type': 'application/json'
                             }
                         })
-                        .then(function (response) { console.log(response); window.location.reload(); })
+                        .then(function () { window.location.reload(); })
                         .catch(function (error) { console.log(error); });
                     })}>
                         <h1>Register</h1>

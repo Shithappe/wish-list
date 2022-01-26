@@ -9,7 +9,6 @@ export default function LoginForm(handleMode){
     return(
         <div className="login centeringFrom styleFrom ">
                     <form onSubmit={handleSubmit(async (data) => {
-                        console.log(data);
                         
                         axios.post('http://localhost:8000/api/user/login/', {
                             email: data.email,
@@ -28,7 +27,7 @@ export default function LoginForm(handleMode){
                         <input {...register("email", {required: "true"})} type='email' placeholder="E-mail" />
                         { InvalidData.email && <p className='tipInForm'>{InvalidData.email}</p>}
                         <input {...register("password")} type='password' placeholder="Password" />
-                        {console.log(InvalidData)}
+
                         { InvalidData.password && <p className='tipInForm'>{InvalidData.password}</p>}
                         <br/>
                         <input type='submit' value='Login' />

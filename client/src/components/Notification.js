@@ -50,7 +50,7 @@ export default function Notification() {
                                 }
                                 })
                                 .then(function (response) {
-                                    console.log(response);
+                                    console.log(response); // сюда прокинуть закрытие блока
                                 })
                                 .catch(function (error) {console.log(error)})
                             }>Accept

@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
-var cors = require('cors');
+let cors = require('cors');
 
 const port = 8000;
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json())
 
-var allowedOrigins = ['http://localhost:3000'];
+let allowedOrigins = ['http://localhost:3000'];
 app.use(cors({
   origin: function(origin, callback){
     // allow requests with no origin 

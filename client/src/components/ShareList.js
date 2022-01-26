@@ -10,8 +10,6 @@ export default function ShareList() {
 
 
     useEffect(() => {                   
-        // async function fetchMyAPI() {   // some shit
-        // let response = await
         axios({
             method: 'get',
             url: "http://localhost:8000/api/wish/users",
@@ -27,8 +25,6 @@ export default function ShareList() {
             .catch(function (error) {
                 console.log(error);
             });
-        // }
-        // fetchMyAPI()
     }, []);
 
 
@@ -40,19 +36,9 @@ export default function ShareList() {
     };
 
 
-    var usernames = users.filter(function (el) {
+    let usernames = users.filter(function (el) {
         return el.username.toLowerCase().includes(searchTerm.toLowerCase()) || el.email.toLowerCase().includes(searchTerm.toLowerCase()); 
     });
-
-    // useEffect(() => {
-        // const results = usernames.filter(person =>
-        //   person.toLowerCase().includes(searchTerm.toLowerCase())
-        // );
-        // const results = users.filter(function (el) {
-        //      return el.username.toLowerCase().includes(searchTerm.toLowerCase()) || el.email.toLowerCase().includes(searchTerm.toLowerCase()); 
-        //   });
-        // setSearchResults(results);
-    // }, [searchTerm]);
 
     return(
         <div className="styleFrom shareList">
@@ -79,8 +65,8 @@ export default function ShareList() {
                                     'Content-Type': 'application/json'
                                 }
                                 })
-                                .then(function (response) {
-                                    console.log(response);
+                                .then(function () {
+                                     // close block 
                                 })
                                 .catch(function (error) {console.log(error)})
                             }>Share

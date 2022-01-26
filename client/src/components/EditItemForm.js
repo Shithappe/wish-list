@@ -8,7 +8,6 @@ export default function EditItemForm({ data, handlEdit, update}) {
     return (
         <div className="centeringFrom styleFrom">
             <form onSubmit={handleSubmit((dataFrom) => {
-                    console.log(data);
                     
                     axios({
                         method: 'patch',
@@ -25,7 +24,6 @@ export default function EditItemForm({ data, handlEdit, update}) {
                         }
                         })
                         .then(function (response) {
-                           console.log(response);
                            handlEdit(false);
                            update();
                         })
@@ -58,7 +56,6 @@ export default function EditItemForm({ data, handlEdit, update}) {
                     }
                     })
                     .then(function (response) {
-                       console.log(response);
                        handlEdit(false);
                        update();
                     })
