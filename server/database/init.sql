@@ -17,9 +17,6 @@ CREATE Table Wishs(
     price VARCHAR(255),
     user_id INT UNSIGNED
     done BOOLEAN DEFAULT 0,
-    -- another_user_wish VARCHAR(255) DEFAULT NULL --if its not my wish - it save usermane, else = null
-    -- or
-    -- another_user_wish BOOLEAN DEFAULT 0
 );
 
 CREATE Table Share(

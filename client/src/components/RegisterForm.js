@@ -9,8 +9,9 @@ export default function RegisterForm(handleMode){
     return(
         <div className="centeringForm styleFrom">
                     <form onSubmit={handleSubmit((data) => {
+                        console.log(data);
                         registration(data);
-                    })}> й
+                    })}>
                         <h1>Register</h1>
                         <input {...register('username', {
                                 required: "This is required", 

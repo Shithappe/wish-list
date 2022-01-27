@@ -23,7 +23,7 @@ router.post('/register', async function (req, res) {
     console.log(req.body)
 
     const validation = schema.validate(req.body);
-    if (validation.error) return res.status(420).send(validation.error.details[0].message);
+    if (validation.error) return res.status(422).send(validation.error.details[0].message);
 
     try{
         const salt = await bcrypt.genSaltSync(10);
@@ -31,9 +31,11 @@ router.post('/register', async function (req, res) {
 
         connection.query(
             `INSERT INTO users (username, password, email) VALUES ('${req.body.username}', '${hashPassword}', '${req.body.email}');`,
-            function(err) {
+            function(err, result) {
                 if (!err) {
-                    res.sendStatus(201);
+                    res.status(201);
+                    const token = jwt.sign({ _id: result.insertId}, process.env.SECRET_TOKEN);
+                    res.header('Authorization', token).send({ id: result.insertId, token: token});
                 }
                 else {
                     err.errno === 1062 && res.status(400).send("user already exist");

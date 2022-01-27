@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import axios from 'axios';
 import Cookies from "js-cookie";
 
@@ -6,14 +5,14 @@ import Cookies from "js-cookie";
 export async function getWish(){
     const id = Cookies.get('id');
     let data = {};
-
+    
     return axios({
-      method: 'get',
-      url: "http://localhost:8000/api/wish/",
-      headers: {
-        "Authorization": Cookies.get('Authorization'),
-        'Content-Type': 'application/json'
-      }
+        method: 'get',
+        url: "http://localhost:8000/api/wish/",
+        headers: {
+            "Authorization": Cookies.get('Authorization'),
+            'Content-Type': 'application/json'
+        }
     })
     .then(function (response) {
         let mywishtemp = [];
@@ -22,11 +21,10 @@ export async function getWish(){
             if (element.user_id == id) mywishtemp.push(element); 
             else otherwishtemp.push(element);
         });
-
-        data = {
-            myWishes: mywishtemp,
-            otherWishes: otherwishtemp
-        }
+        
+        if (otherwishtemp.length) data = { myWishes: mywishtemp, otherWishes: otherwishtemp }
+        else data = { myWishes: mywishtemp }
+        
         return data;
     })
     .catch(function (error) {
