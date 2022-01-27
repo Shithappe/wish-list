@@ -9,7 +9,6 @@ export default function RegisterForm(handleMode){
     return(
         <div className="centeringForm styleFrom">
                     <form onSubmit={handleSubmit((data) => {
-                        console.log(data);
                         registration(data);
                     })}>
                         <h1>Register</h1>

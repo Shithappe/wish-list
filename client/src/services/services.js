@@ -24,7 +24,7 @@ export async function getWish(){
         
         if (otherwishtemp.length) data = { myWishes: mywishtemp, otherWishes: otherwishtemp }
         else data = { myWishes: mywishtemp }
-        
+
         return data;
     })
     .catch(function (error) {
@@ -49,7 +49,6 @@ export function addWish(data) {
 }
 
 export function updateWish(id, data) {
-    console.log(data);
     return axios({
         method: 'patch',
         url: "http://localhost:8000/api/wish/",
@@ -180,7 +179,6 @@ export function registration(data) {
 }
 
 export function login (data) {
-    console.log(data);
     return axios.post('http://localhost:8000/api/user/login/', {
         email: data.email,
         password: data.password

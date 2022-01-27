@@ -20,7 +20,6 @@ const loginSchema = Joi.object({
 
 
 router.post('/register', async function (req, res) {
-    console.log(req.body)
 
     const validation = schema.validate(req.body);
     if (validation.error) return res.status(422).send(validation.error.details[0].message);
