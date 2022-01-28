@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Cookies from "js-cookie";
+// const dotenv = require('dotenv');
+// dotenv.config();
 
 
 export async function getWish(){
@@ -8,7 +10,7 @@ export async function getWish(){
     
     return axios({
         method: 'get',
-        url: "http://localhost:8000/api/wish/",
+        url: `${process.env.REACT_APP_SERVER_HOST}/wish/`,
         headers: {
             "Authorization": Cookies.get('Authorization'),
             'Content-Type': 'application/json'
@@ -33,7 +35,7 @@ export async function getWish(){
 }
 
 export function addWish(data) {
-    return axios.post('http://localhost:8000/api/wish/add/', 
+    return axios.post(`${process.env.REACT_APP_SERVER_HOST}/wish/add/`, 
         {
             name: data.name,
             link: data.link,
@@ -51,7 +53,7 @@ export function addWish(data) {
 export function updateWish(id, data) {
     return axios({
         method: 'patch',
-        url: "http://localhost:8000/api/wish/",
+        url: `${process.env.REACT_APP_SERVER_HOST}/wish/`,
         data: {
             id: id,
             name: data.name,
@@ -71,7 +73,7 @@ export function updateWish(id, data) {
 export function deleteWish(id) {
     return axios({
         method: 'delete',
-        url: "http://localhost:8000/api/wish/",
+        url: `${process.env.REACT_APP_SERVER_HOST}/wish/`,
         data: {
             id: id
         },
@@ -88,7 +90,7 @@ export function deleteWish(id) {
 export function getNotification() {
     return axios({
         method: 'get',
-        url: "http://localhost:8000/api/wish/notification",
+        url: `${process.env.REACT_APP_SERVER_HOST}/wish/notification`,
         headers: {
             "Authorization": Cookies.get('Authorization'),
             'Content-Type': 'application/json'
@@ -105,7 +107,7 @@ export function getNotification() {
 export function acceptShare(id) {
     return axios({
         method: 'patch',
-        url: "http://localhost:8000/api/wish/share",
+        url: `${process.env.REACT_APP_SERVER_HOST}/wish/share`,
         data: {
             sender_id: id,
             accepted: 1
@@ -124,7 +126,7 @@ export function acceptShare(id) {
 export function getUserList() {
     return axios({
         method: 'get',
-        url: "http://localhost:8000/api/wish/users",
+        url: `${process.env.REACT_APP_SERVER_HOST}/wish/users`,
         headers: {
             "Authorization": Cookies.get('Authorization'),
             'Content-Type': 'application/json'
@@ -141,7 +143,7 @@ export function getUserList() {
 export function shareWish(id) {
     return axios({
         method: 'post',
-        url: "http://localhost:8000/api/wish/share",
+        url: `${process.env.REACT_APP_SERVER_HOST}/wish/share`,
         data: {
             recipient_id: id
         },
@@ -159,7 +161,7 @@ export function shareWish(id) {
 export function registration(data) {
     return axios({
         method: 'post',
-        url: 'http://localhost:8000/api/user/register/', 
+        url: `${process.env.REACT_APP_SERVER_HOST}/user/register/`, 
         data: {
         username: data.username,
         password: data.password,
@@ -173,20 +175,20 @@ export function registration(data) {
     .then(function (response) { 
         Cookies.set("Authorization", response.data.token);
         Cookies.set("id", response.data.id); 
-        window.location.assign('http://localhost:3000/home'); 
+        window.location.assign(`${process.env.REACT_APP_CLIENT_HOST}/home`); 
      })
     .catch(function (error) { console.log(error.response.data); });
 }
 
 export function login (data) {
-    return axios.post('http://localhost:8000/api/user/login/', {
+    return axios.post(`${process.env.REACT_APP_SERVER_HOST}/user/login/`, {
         email: data.email,
         password: data.password
       })
       .then(function (response) { 
           Cookies.set("Authorization", response.data.token);
           Cookies.set("id", response.data.id); 
-          window.location.assign('http://localhost:3000/home'); 
+          window.location.assign(`${process.env.REACT_APP_CLENT_HOST}/home`); 
         })
       .catch(function (error) { 
           return error.response.data;
