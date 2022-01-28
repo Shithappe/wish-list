@@ -14,7 +14,7 @@ export default function Wish(props) {
                     />}
             <div>
                 <h3>{props.data.name}</h3>
-                <button className="editButton" onClick = {() => {
+                <button className="editWishButton" onClick = {() => {
                     setEdit(true);
                 }}>
                     <svg xmlns="http://www.w3.org/2000/svg"  width="25" height="25">    

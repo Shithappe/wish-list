@@ -49,10 +49,6 @@ body{
   backdrop-filter: blur(5px);
 }
 
-.formButtons *{
-  margin: 0 10px;
-}
-
 .centeringForm{
   z-index: 2;
   position: absolute;
@@ -61,16 +57,27 @@ body{
   left:50%;
   transform: translate(-50%, -50%);
 }
+
+.formButtons, .listItem .formButtons{
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.formButtons input, .listItem .formButtons input{
+  width: 90%;
+  margin: 0;
+}
   
-.styleFrom form{
+.styleFrom{
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  width: 45vh;
+  width: 40vh;
   
   text-shadow: 4px 2px 20px rgba(150, 150, 150, 1);
-  padding: 20px;
+  padding: 40px;
   z-index: 1;
   background: rgb(40, 50, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -78,7 +85,8 @@ body{
   box-shadow: 6px 6px 12px 2px rgba(34, 60, 80, 0.3);
 }
 
-.styleFrom input[type='text'], [type='email'], [type='password']{
+.styleFrom input{
+  width: 85%;
   margin: 5px;
   padding: 10px;
   border: none;
@@ -86,6 +94,14 @@ body{
   border-bottom: 1px solid rgb(156, 156, 156);
   outline: none;
   font-size: larger;
+}
+
+.styleFrom div input{
+  margin: 0 10px;
+}
+
+.styleFrom input[type='text']:hover{
+  border-bottom: 1px solid rgb(116, 116, 116);
 }
 
 .styleFrom input[type='text']:focus{
@@ -115,7 +131,7 @@ body{
   padding: 0;
 }
 
-.listItem button{
+.editWishButton{
   border-radius: 50%;
   background: none;
   width: 43px;
@@ -148,17 +164,7 @@ button, input[type='button'], input[type='submit']{
 
 button:hover, input[type='button']:hover, input[type='submit']:hover{
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-  color: rgb(250, 250, 250);
-}
-
-.doneButton:after{
-  content: '\2713';
-}
-
-.doneButton:hover, .button:hover{
-  color: rgba(0, 0, 0, 0.7);
-  background: rgb(228, 228, 228, 0.5);
-  box-shadow: 2px 2px 4px 0px rgba(34, 60, 80, 0.2);
+  color: rgb(255, 255, 255);
 }
 
 span{
@@ -167,7 +173,7 @@ span{
   color: rgb(126, 126, 126);
 }
 
-.secondaryButtons *{
+.secondaryButtons button{
   font-weight: normal;
   font-size: larger;
   background: none;
@@ -175,14 +181,14 @@ span{
   font-size: larger;
 }
 
-.secondaryButtons *:hover{
+.secondaryButtons button:hover{
   color: black;
   box-shadow:  none;
   text-shadow: 3px 1px 14px rgba(150, 150, 150, 1);
 }
 
-.tipInForm{
-  width: 80%;
+.tipForWrongInput{
+  width: 100%;
   margin: -0.7em auto -0.5em;
   overflow: hidden;
   text-align: center;
@@ -225,10 +231,10 @@ span{
   box-shadow: 6px 6px 12px 2px rgba(34, 60, 80, 0.3);
 }
 
-hr{
-  color: #8e8e8e;
+.deleteButton{
+  width: 100%;
 }
 
-.editButton{
-  right: 5px;
+.deleteButton:hover{
+  color: red;
 }
