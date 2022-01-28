@@ -3,11 +3,11 @@ import { getNotification, acceptShare } from '../services/services';
 
 export default function Notification() {
 
-    const [username, setUsername] = useState([]);
+    const [users, setUsers] = useState([]);
 
     async function fetchNotification() {
         const notification = await getNotification();
-        setUsername(notification);
+        setUsers(notification);
     }
     
     useEffect(() => {
@@ -17,7 +17,7 @@ export default function Notification() {
 
     return (
         <div className='notificationBlock'>
-            {username && username.map((user) => 
+            {users && users.map((user) => 
             
         <div className="notification" key={user.id}>
             <p><b>{user.username}</b>

@@ -68,6 +68,10 @@ body{
   width: 90%;
   margin: 0;
 }
+
+.notificationBlock .formButtons{
+  justify-content: space-around;
+}
   
 .styleFrom{
   display: flex;
