@@ -4,6 +4,7 @@ import EditItemForm from "./EditItemForm";
 export default function Wish(props) {
 
     const [edit, setEdit] = useState(false);
+    const [link, setLink] = useState(props.data.link);
 
     function formatName(name) {
         if (name.length < 35) return name;
@@ -18,10 +19,14 @@ export default function Wish(props) {
         return link;
     }
 
-    function copyLink(e) {
-        console.log(e);
-        console.log(props.data);
-        navigator.clipboard.writeText(props.data.link)
+    function sayCopied() {
+        setLink(props.data.link);
+      }
+
+    function copyLink() {
+        navigator.clipboard.writeText(props.data.link);
+        setLink('Copied');
+        setTimeout(sayCopied, 2000);
     }
 
     return (
@@ -44,7 +49,7 @@ export default function Wish(props) {
             <h4 data-type='link' 
                 title={'copy ' + props.data.link} 
                 onClick={copyLink}
-            >{formatLink(props.data.link)}</h4>
+            >{formatLink(link)}</h4>
             <h4>{props.data.price}</h4>
         </div>
     )
