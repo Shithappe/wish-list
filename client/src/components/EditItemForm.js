@@ -5,7 +5,7 @@ export default function EditItemForm({ data, handlEdit, update}) {
     const { register, handleSubmit, formState: {errors} } = useForm();
 
     return (
-        <form className="centeringForm styleFrom" onSubmit={handleSubmit((dataFrom) => {
+        <form className="centeringForm styleForm" onSubmit={handleSubmit((dataFrom) => {
 
                 updateWish(data.id, dataFrom);
                 handlEdit(false);

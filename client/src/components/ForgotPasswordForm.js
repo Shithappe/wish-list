@@ -1,6 +1,6 @@
 export default function ForgotPasswordForm(handleMode){
     return(
-        <form className='ForgotPassword centeringForm styleFrom'>
+        <form className='ForgotPassword centeringForm styleForm'>
             <h1>Forgot Password</h1>
             <input type='text' placeholder="Username" />
             <input type='submit' value='Forgot' />

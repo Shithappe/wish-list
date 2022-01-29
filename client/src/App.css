@@ -73,7 +73,7 @@ body{
   justify-content: space-around;
 }
   
-.styleFrom{
+.styleForm {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,7 +81,7 @@ body{
   width: 40vh;
   
   text-shadow: 4px 2px 20px rgba(150, 150, 150, 1);
-  padding: 40px;
+  padding: 15px 40px;
   z-index: 1;
   background: rgb(40, 50, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -89,7 +89,7 @@ body{
   box-shadow: 6px 6px 12px 2px rgba(34, 60, 80, 0.3);
 }
 
-.styleFrom input{
+.styleForm input{
   width: 85%;
   margin: 5px;
   padding: 10px;
@@ -100,17 +100,12 @@ body{
   font-size: larger;
 }
 
-.styleFrom div input{
+.styleForm div input{
   margin: 0 10px;
 }
 
-.styleFrom input[type='text']:hover{
-  border-bottom: 1px solid rgb(116, 116, 116);
-}
-
-.styleFrom input[type='text']:focus{
-  border-bottom: 1px solid black;
-  color: black;
+.styleForm  input[type=text]:hover, input[type=email]:hover, input[type='password']:hover{
+  border-bottom: 1px solid rgb(90, 90, 90);
 }
 
 .listItem{
@@ -121,6 +116,7 @@ body{
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   background: rgb(240, 240, 240);
   min-width: 200px;
+  max-width: 400px;
 }
 
 .listItem:hover{
@@ -241,4 +237,12 @@ span{
 
 .deleteButton:hover{
   color: red;
+}
+
+h4[data-type='link']{
+  text-decoration: underline;
+}
+
+h4[data-type='link']:hover{
+  color: blue;
 }

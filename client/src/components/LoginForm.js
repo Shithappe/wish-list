@@ -2,11 +2,11 @@ import { useForm } from "react-hook-form";
 import React, { useState } from 'react';
 import { login } from "../services/services";
 
-export default function LoginForm(handleMode){
+export default function LoginForm({setMode}){
     const { register, handleSubmit } = useForm();
     const [wrongInput, setWrongInput] = useState([]);
     return(
-        <form className="login centeringForm styleFrom" onSubmit={handleSubmit(async (data) => {
+        <form className="login centeringForm styleForm" onSubmit={handleSubmit(async (data) => {
             const err = await login(data);
             setWrongInput(err);
         })}>
@@ -19,8 +19,7 @@ export default function LoginForm(handleMode){
             <br/>
             <input type='submit' value='Login' />
             <div className='secondaryButtons'>
-                <button onClick={() => handleMode.handleMode('register')}>Register</button>
-                <button onClick={() => handleMode.handleMode('forgot')}>Forgot Password</button>
+                <button onClick={() => setMode('register')}>Register</button>
             </div>
         </form>
     )

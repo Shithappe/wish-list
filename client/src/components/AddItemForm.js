@@ -5,7 +5,7 @@ export default function AddItemForm({handleWish, refreshWishes}) {
     const { register, handleSubmit, formState: {errors} } = useForm();
 
     return (
-        <form className="centeringForm styleFrom" onSubmit={handleSubmit((data) => {
+        <form className="centeringForm styleForm" onSubmit={handleSubmit((data) => {
                 addWish(data);
                 handleWish(false);
                 refreshWishes();

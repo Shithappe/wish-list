@@ -29,7 +29,7 @@ export default function ShareList() {
     });
 
     return(
-        <div className="styleFrom shareList">
+        <div className="styleForm shareList">
 
             <form>
                 <input type='text' placeholder="Search user"  value={searchTerm} onChange={handleChange} />

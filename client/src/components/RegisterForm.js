@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { registration } from "../services/services";
 
-export default function RegisterForm(handleMode){
+export default function RegisterForm({setMode}){
     const { register, handleSubmit, formState: {errors}, watch } = useForm();
     const pass = watch('password');
     const cPass = watch('comfPass');
 
     return(
-        <form className="centeringForm styleFrom" onSubmit={handleSubmit((data) => {
+        <form className="centeringForm styleForm" onSubmit={handleSubmit((data) => {
             registration(data);
         })}>
             <h1>Register</h1>
@@ -42,8 +42,7 @@ export default function RegisterForm(handleMode){
             <br/>
             <input type='submit' value='Register' />
             <div className='secondaryButtons'>
-                <button onClick={() => handleMode.handleMode('login')}>Login</button>
-                <button onClick={() => handleMode.handleMode('forgot')}>Forgot Password</button>
+                <button onClick={() => setMode('login')}>Login</button>
             </div>
         </form>
     )

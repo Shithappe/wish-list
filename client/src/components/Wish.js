@@ -5,6 +5,25 @@ export default function Wish(props) {
 
     const [edit, setEdit] = useState(false);
 
+    function formatName(name) {
+        if (name.length < 35) return name;
+        else return name.slice(0, 33) + '...';
+    }
+
+    function formatLink(link) {
+        if (link.indexOf('//') === -1) return link;
+        link = link.substr(link.indexOf('//') + 2);
+        if (link.indexOf('www.') > -1) link = link.substr(link.indexOf('www.') + 4);
+        link = link.substr(0, link.indexOf('/'));
+        return link;
+    }
+
+    function copyLink(e) {
+        console.log(e);
+        console.log(props.data);
+        navigator.clipboard.writeText(props.data.link)
+    }
+
     return (
         <div className="listItem">
             { edit && <EditItemForm
@@ -13,7 +32,7 @@ export default function Wish(props) {
                         update = { () => props.update() }
                     />}
             <div>
-                <h3>{props.data.name}</h3>
+                <h3 title={props.data.name}>{formatName(props.data.name)}</h3>
                 <button className="editWishButton" onClick = {() => {
                     setEdit(true);
                 }}>
@@ -22,7 +41,10 @@ export default function Wish(props) {
                     </svg>
                 </button>
             </div>
-            <h4>{props.data.link}</h4>
+            <h4 data-type='link' 
+                title={'copy ' + props.data.link} 
+                onClick={copyLink}
+            >{formatLink(props.data.link)}</h4>
             <h4>{props.data.price}</h4>
         </div>
     )
