@@ -14,9 +14,9 @@ const wishSchema = Joi.object({
 router.get('/', verify, (req, res) => {
     try{
         connection.query(
-            `SELECT id, name, link, price, user_id from wishs WHERE user_id = ${req.user._id}
+            `SELECT wishs.id, name, link, price, user_id, users.username, users.email from wishs join users on wishs.user_id = users.id WHERE user_id = ${req.user._id}
             UNION
-            SELECT wishs.id, name, link, price, user_id FROM wishs join share on wishs.user_id = share.sender_id WHERE recipient_id = ${req.user._id} AND accepted = 1;`,
+            SELECT  wishs.id, name, link, price, user_id, username, email FROM wishs join share on wishs.user_id = share.sender_id join users on wishs.user_id = users.id WHERE recipient_id = ${req.user._id} AND accepted = 1 ORDER BY user_id;`,
             function(err, result) {
                 if (!err) {
                     res.status(200).send(result);

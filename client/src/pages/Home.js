@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Wish from '../components/Wish.js'
-import OtherWish from '../components/OtherWish.js'
+import React, { useState } from 'react';
+import WishesBlock from '../components/WishesBlock.js';
 import Notification from '../components/Notification.js'
 import ShareList from '../components/ShareList.js';
 import AddItemForm from '../components/AddItemForm.js'
 
-import { getWish } from '../services/services';
 import Cookies from "js-cookie";
 
 
@@ -14,16 +12,9 @@ export default function Home() {
 
     const [switchShareWish, setSwitchShareWish] = useState(false); //switch for showing the form addWish
     const [wish, setWish] = useState(false); //switch for showing the form addWish
-    const [data, setData] = useState({});
+    const [refreshWishes, setRefreshWishes] = useState(false); // signal for refresh wishes to WishesBlock
 
-    async function fetchData() {
-        const wishes = await getWish();
-        setData(wishes);
-    }
-    
-    useEffect(() => {
-        fetchData();
-    }, [])
+
 
     function Nav(){
         return(
@@ -46,15 +37,17 @@ export default function Home() {
 
             { wish && <AddItemForm 
                             handleWish={(value) => { setWish(value) }} 
-                            refreshWishes={ () => { fetchData() }} 
+                            setRefreshWishes={ (value) => { setRefreshWishes(value) }} 
                         /> 
             }
 
             { switchShareWish && <ShareList /> } 
 
-            { data.myWishes && data.myWishes.map((item) =>  <Wish key={item.id} data={item} update={() => fetchData()}/>) }
-            { data.otherWishes && <hr/>}
-            { data.otherWishes && data.otherWishes.map((otherwish) => <OtherWish key={otherwish.id} data={otherwish}/>) }
+            <WishesBlock 
+                refresh={refreshWishes}
+                setRefreshWishes={ () => { setRefreshWishes() }}
+            />
+
         </div>
     )
 }

@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
 import { addWish } from '../services/services';
 
-export default function AddItemForm({handleWish, refreshWishes}) {
+export default function AddItemForm({handleWish, setRefreshWishes}) {
     const { register, handleSubmit, formState: {errors} } = useForm();
 
     return (
         <form className="centeringForm styleForm" onSubmit={handleSubmit((data) => {
                 addWish(data);
                 handleWish(false);
-                refreshWishes();
+                setRefreshWishes(true);
                 })}>
             <h2>Add Wish</h2>
             <input {...register('name', {required: "This is required"})} type='text' placeholder="Name"/>

@@ -27,32 +27,9 @@ CREATE Table Share(
 );
 
 
-select * from (
-    SELECT * FROM WISHS WHERE user_id = 2
-    UNION 
-    select (SELECT  * from (select sender_id from share where recipient_id = 2) WHERE user_id = 2 )
-)
-order by id;
-
---
-SELECT * from wishs WHERE user_id = 2 -- my_id
-UNION 
-SELECT * from wishs WHERE user_id = (
-    select sender_id from share WHERE recipient_id = 2 --my_id
-);
+UPDATE share SET accepted = 1 WHERE recipient_id = 3 AND sender_id = 5;
 
 
-select u.id, username, email from users u join share s on (u.id=s.sender_id) where s.recipient_id = 2 and s.accepted = 0;
-
-    UPDATE share SET accepted = 1 WHERE recipient_id = 3 AND sender_id = 5;
-
-select w.* from wishs w join users u on (w.user_id = u.id) join share s on (s.sender_id=u.id) where s.accepted=1;
-
-
-SELECT sender_id from share WHERE recipient_id = 3 AND accepted = 1;
-
-SELECT distinct * FROM wishs join share on wishs.user_id = 7 OR wishs.user_id = share.sender_id WHERE recipient_id = 7 AND accepted = 1;
-
-SELECT id, name, link, price from wishs WHERE user_id = 3
+SELECT wishs.id, name, link, price, user_id, users.username, users.email from wishs join users on wishs.user_id = users.id WHERE user_id = 17
 UNION
-SELECT wishs.id, name, link, price FROM wishs join share on wishs.user_id = share.sender_id WHERE recipient_id = 3 AND accepted = 1;
+SELECT  wishs.id, name, link, price, user_id, username, email FROM wishs join share on wishs.user_id = share.sender_id join users on wishs.user_id = users.id WHERE recipient_id = 17 AND accepted = 1 ORDER BY user_id;
