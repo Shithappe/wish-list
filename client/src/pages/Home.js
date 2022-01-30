@@ -23,7 +23,14 @@ export default function Home() {
                     <h1>Wish List<span>.react</span> </h1>
                     <button onClick={() => setWish(true)}>Add wish</button>
                 </div>
-                <button onClick={() => {setSwitchShareWish(!switchShareWish)}}>Share wish</button>
+                <div>
+                    <button onClick={() => {setSwitchShareWish(!switchShareWish)}}>Share wish</button>
+                    <button className='exitButton' onClick={() => {
+                        Cookies.remove('id');
+                        Cookies.remove('Authorization');
+                        window.location.assign('http://localhost:3000/auth');
+                        }}>Exit</button>
+                </div>
             </div>
         )
     }

@@ -253,3 +253,7 @@ h4[data-type='link']:hover{
   font-weight: bold;
   margin-top: 1rem;
 }
+
+.exitButton{
+  margin-left: 10px;
+}
