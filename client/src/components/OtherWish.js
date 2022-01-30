@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 export default function OtherWish({data}) {
     
-    const [link, setLink] = useState(data.link);
+    const [link, setLink] = useState(data.formatedLink);
 
     function sayCopied() {
-        setLink(data.link);
+        setLink(data.formatedLink);
       }
 
     function copyLink() {

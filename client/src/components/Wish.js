@@ -4,10 +4,10 @@ import EditItemForm from "./EditItemForm";
 export default function Wish(props) {
 
     const [edit, setEdit] = useState(false);
-    const [link, setLink] = useState(props.data.link);
+    const [link, setLink] = useState(props.data.formatedLink);
 
     function sayCopied() {
-        setLink(props.data.link);
+        setLink(props.data.formatedLink);
       }
 
     function copyLink() {

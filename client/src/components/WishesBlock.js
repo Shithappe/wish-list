@@ -11,6 +11,14 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
     
     async function fetchData() {
         const wishes = await getWish();
+        // wishes.otherWishes.forEach(wish => {
+        //     wish = formatData(wish);
+        // })
+
+        // wishes.myWishes.forEach(wish => {
+        //     wish = formatData(wish);
+        // })
+
         setWishes(wishes);
         
         const userIds = [...new Set(wishes.otherWishes.map(item => item.user_id))];
@@ -38,16 +46,26 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
     }
 
     function formatLink(link) {
-        if (link.indexOf('//') === -1) return link;
-        link = link.substr(link.indexOf('//') + 2);
-        if (link.indexOf('www.') > -1) link = link.substr(link.indexOf('www.') + 4);
-        link = link.substr(0, link.indexOf('/'));
-        return link;
+        let formatedLink = link;
+
+        if (formatedLink.indexOf('//') === -1) {
+            return formatedLink;
+        }
+
+        formatedLink = formatedLink.substr(formatedLink.indexOf('//') + 2);
+
+        if (formatedLink.indexOf('www.') > -1) {
+            formatedLink = formatedLink.substr(formatedLink.indexOf('www.') + 4);
+        }
+
+        formatedLink = formatedLink.substr(0, formatedLink.indexOf('/'));
+
+        return formatedLink;
     }
 
     function formatData(data) {
         data.name = formatName(data.name);
-        data.link = formatLink(data.link);
+        data.formatedLink = formatLink(data.link);
         return data;
     }
 
