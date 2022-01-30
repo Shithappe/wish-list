@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { getNotification, acceptShare } from '../services/services';
+import { getNotification, acceptShare, cancelShare } from '../services/services';
 
-export default function Notification() {
+export default function Notification({setRefreshWishes}) {
 
     const [users, setUsers] = useState([]);
 
@@ -26,8 +26,16 @@ export default function Notification() {
                             <br/>
                              gave you access to his list</p>
             <div className="formButtons">
-                <button onClick={ () => acceptShare(user.id) }>Accept</button>
-                <button>Cancel</button>
+                <button onClick={ () => {
+                    acceptShare(user.id);
+                    setRefreshWishes(true);
+                    fetchNotification();
+                }}>Accept</button>
+
+                <button onClick={ () => {
+                    cancelShare(user.id)
+                    fetchNotification();
+                }}>Cancel</button>
             </div>
         </div>
             )}

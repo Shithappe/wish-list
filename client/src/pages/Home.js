@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 
 
 export default function Home() {
-    if (!Cookies.get('id')) window.location.assign('http://localhost:3000/auth');
+    if (!Cookies.get('id')) window.location.assign(process.env.REACT_APP_CLIENT_HOST + '/auth');
 
     const [switchShareWish, setSwitchShareWish] = useState(false); //switch for showing the form addWish
     const [wish, setWish] = useState(false); //switch for showing the form addWish
@@ -28,8 +28,8 @@ export default function Home() {
                     <button className='exitButton' onClick={() => {
                         Cookies.remove('id');
                         Cookies.remove('Authorization');
-                        window.location.assign('http://localhost:3000/auth');
-                        }}>Exit</button>
+                        window.location.assign(process.env.REACT_APP_CLIENT_HOST + '/auth');
+                    }}>Exit</button>
                 </div>
             </div>
         )
@@ -39,7 +39,10 @@ export default function Home() {
         <div className='main'>
             <Nav/>
             
-            <Notification/>
+            <Notification 
+                handleWish={(value) => { setWish(value) }} 
+                setRefreshWishes={ (value) => { setRefreshWishes(value) }}
+            />
 
 
             { wish && <AddItemForm 

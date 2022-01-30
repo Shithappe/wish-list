@@ -132,7 +132,7 @@ router.patch('/share', verify, (req, res) => {
 router.get('/notification', verify, (req, res) => {
     try{
         connection.query(
-            `select u.id, username, email from users u join share s on (u.id=s.sender_id) where s.recipient_id = ${req.user._id} and s.accepted = 0;`,
+            `select s.id, username, email from users u join share s on (u.id=s.sender_id) where s.recipient_id = ${req.user._id} and s.accepted = 0;`,
             function(err, result) {
                 if (!err) {
                     res.status(200).send(result);
@@ -144,5 +144,21 @@ router.get('/notification', verify, (req, res) => {
         res.status(400).send(err);
     }
 })
+
+router.delete('/notification', verify, (req, res) => {
+    try{
+        connection.query(
+            `DELETE FROM SHARE WHERE id = ${req.body.id}`,
+            function(err) {
+                if (!err) {
+                    res.sendStatus(203);
+                }
+            }
+        );
+    }
+    catch(err){
+        res.status(400).send(err);
+    }
+});
 
 module.exports = router

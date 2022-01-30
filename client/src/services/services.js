@@ -192,3 +192,20 @@ export function login (data) {
           return error.response.data;
         });
 }
+
+export function cancelShare (id) {
+    return axios({
+        method: 'delete',
+        url: `${process.env.REACT_APP_SERVER_HOST}/wish/notification`,
+        data: {
+            id: id
+        },
+        headers: {
+            "Authorization": Cookies.get('Authorization'),
+            'Content-Type': 'application/json'
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+}
