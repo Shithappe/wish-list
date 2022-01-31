@@ -11,14 +11,6 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
     
     async function fetchData() {
         const wishes = await getWish();
-        // wishes.otherWishes.forEach(wish => {
-        //     wish = formatData(wish);
-        // })
-
-        // wishes.myWishes.forEach(wish => {
-        //     wish = formatData(wish);
-        // })
-
         setWishes(wishes);
         
         const userIds = [...new Set(wishes.otherWishes.map(item => item.user_id))];
@@ -59,7 +51,7 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
         }
 
         formatedLink = formatedLink.substr(0, formatedLink.indexOf('/'));
-
+        
         return formatedLink;
     }
 
