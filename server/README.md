@@ -6,6 +6,19 @@ Make sure you have:
 - Node.js
 - MySql
 
+### Database
+```
+cd server/database/
+execute init.sql
+```
+
+### Backend
+```
+cd server
+npm i
+npm start
+```
+
 
 ## API Usage
 
