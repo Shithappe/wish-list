@@ -34,7 +34,7 @@ cd server
 npm i
 npm start
 ```
-
+Full [documentation](https://github.com/Shithappe/wish-list/tree/react/server#readme)
 
 ## Frontend:
 ```bash
@@ -42,3 +42,4 @@ cd ../client
 npm i
 npm start
 ```
+Full [documentation](https://github.com/Shithappe/wish-list/tree/react/client#readme)
