@@ -10,6 +10,8 @@ Make sure you have:
 ```
 cd server/database/
 execute init.sql
+cd ../
+input data to connect to Mysql server in .env
 ```
 
 ### Backend
