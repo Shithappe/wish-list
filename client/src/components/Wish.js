@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EditItemForm from "./EditItemForm";
 
-export default function Wish(props) {
+export default function Wish({data, update}) {
+
+    const {formatedLink, name, link, price} = data;
 
     const [edit, setEdit] = useState(false);
-    const [link, setLink] = useState(props.data.formatedLink);
+    const [textLink, setTextLink] = useState(formatedLink);
+
+    useEffect(() => {
+         setTextLink(formatedLink)
+    }, [formatedLink])
 
     function sayCopied() {
-        setLink(props.data.formatedLink);
+         setTextLink(formatedLink);
       }
 
     function copyLink() {
-        navigator.clipboard.writeText(props.data.link);
-        setLink('Copied');
+        navigator.clipboard.writeText(link);
+         setTextLink('Copied');
         setTimeout(sayCopied, 2000);
     }
 
@@ -20,11 +26,11 @@ export default function Wish(props) {
         <div className="listItem">
             { edit && <EditItemForm
                         handlEdit={(value) => { setEdit(value) }} 
-                        data={props.data} 
-                        update = { () => props.update() }
+                        data={ data } 
+                        update = { () => update() }
                     />}
             <div>
-                <h3 title={props.data.name}>{props.data.name}</h3>
+                <h3 title={name}>{name}</h3>
                 <button className="editWishButton" onClick = {() => {
                     setEdit(true);
                 }}>
@@ -34,10 +40,10 @@ export default function Wish(props) {
                 </button>
             </div>
             <h4 data-type='link' 
-                title={'copy ' + props.data.link} 
+                title={'copy ' + link} 
                 onClick={copyLink}
-            >{link}</h4>
-            <h4>{props.data.price}</h4>
+            >{textLink}</h4>
+            <h4>{price}</h4>
         </div>
     )
 }
