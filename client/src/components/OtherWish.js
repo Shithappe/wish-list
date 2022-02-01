@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
 
 export default function OtherWish({data}) {
-    
-    const [link, setLink] = useState(data.formatedLink);
+
+    const {formatedLink, name, link, price, username} = data;
+    const [textLink, setTextLink] = useState(formatedLink);
 
     function sayCopied() {
-        setLink(data.formatedLink);
+         setTextLink(formatedLink);
       }
 
     function copyLink() {
-        navigator.clipboard.writeText(data.link);
-        setLink('Copied');
+        navigator.clipboard.writeText(link);
+         setTextLink('Copied');
         setTimeout(sayCopied, 2000);
     }
 
     return (
         <div className="listItem">
-            <h3>{data.name}</h3>
+            <h3>{name}</h3>
             <h4 data-type='link' 
-                title={'copy ' + data.link} 
+                title={'copy ' + link} 
                 onClick={copyLink}
-            >{link}</h4>
+            >{textLink}</h4>
             <div>
-                <h4>{data.price}</h4>
-                <span>{data.username}</span>
+                <h4>{price}</h4>
+                <span>{username}</span>
             </div>
         </div>
     )

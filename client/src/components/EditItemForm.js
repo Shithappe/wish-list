@@ -14,8 +14,7 @@ export default function EditItemForm({ data, handlEdit, update}) {
 
                 updateWish(data.id, dataForm);
                 handlEdit(false);
-                update();  // don't update link...
-                // document.location.reload();
+                update(); 
                 
                 })}>
             <h2>Update Wish</h2>
