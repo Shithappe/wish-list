@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Wish from './Wish.js';
 import OtherWish from './OtherWish.js'
+import { useSelector, useDispatch } from 'react-redux';
+import { increment } from '../actions/index.js';
 
 import { getWish } from '../services/services';
 
@@ -8,6 +10,9 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
 
     const [wishes, setWishes] = useState({});
     const [otherUsersWishes, setOtherUsersWishes] = useState([]);
+
+    const counter = useSelector(state => state.counter);
+    const dispatch = useDispatch();
     
     async function fetchData() {
         const wishes = await getWish();
@@ -65,11 +70,13 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
 
     return (
         <div>
-            <h2>My wishes</h2>
+            <h2 onClick={() => {dispatch(increment(5))}}>My wishes : {counter}</h2>
             { wishes.myWishes && wishes.myWishes.map((item) =>  <Wish key={item.id} data={formatData(item)} update={() => fetchData()}/>) }
             
             { otherUsersWishes && otherUsersWishes.map((item) => 
+                
                <div key={item.id}>
+                   {/* {console.log(item.id)} */}
                    <div className='usernameTitle'>{item[0].username}</div>
                    { item && item.map((otherwish) => <OtherWish key={otherwish.id} data={formatData(otherwish)}/>) }
                </div> 
