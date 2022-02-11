@@ -76,7 +76,6 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
             { otherUsersWishes && otherUsersWishes.map((item) => 
                 
                <div key={item.id}>
-                   {/* {console.log(item.id)} */}
                    <div className='usernameTitle'>{item[0].username}</div>
                    { item && item.map((otherwish) => <OtherWish key={otherwish.id} data={formatData(otherwish)}/>) }
                </div> 

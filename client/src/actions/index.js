@@ -4,3 +4,10 @@ export const increment = data => {
         data
     }
 };
+
+export const setAuthState = data => {
+    return {
+        type: 'setAuthState',
+        data
+    }
+};

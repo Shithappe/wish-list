@@ -1,10 +1,13 @@
 import { useForm } from "react-hook-form";
+import { useDispatch } from 'react-redux';
+import { setAuthState } from "../actions/index.js";
 import { registration } from "../services/services";
 
 export default function RegisterForm({setMode}){
     const { register, handleSubmit, formState: {errors}, watch } = useForm();
     const pass = watch('password');
     const cPass = watch('comfPass');
+    const dispatch = useDispatch();
 
     return(
         <form className="centeringForm styleForm" onSubmit={handleSubmit((data) => {
@@ -42,7 +45,7 @@ export default function RegisterForm({setMode}){
             <br/>
             <input type='submit' value='Register' />
             <div className='secondaryButtons'>
-                <button onClick={() => setMode('login')}>Login</button>
+                <button onClick={() => dispatch(setAuthState('login'))}>Login</button>
             </div>
         </form>
     )

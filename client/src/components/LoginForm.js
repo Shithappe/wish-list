@@ -1,10 +1,15 @@
 import { useForm } from "react-hook-form";
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setAuthState } from "../actions/index.js";
 import { login } from "../services/services";
 
-export default function LoginForm({setMode}){
+export default function LoginForm(){
     const { register, handleSubmit } = useForm();
     const [wrongInput, setWrongInput] = useState([]);
+
+    const dispatch = useDispatch();
+
     return(
         <form className="login centeringForm styleForm" onSubmit={handleSubmit(async (data) => {
             const err = await login(data);
@@ -19,7 +24,7 @@ export default function LoginForm({setMode}){
             <br/>
             <input type='submit' value='Login' />
             <div className='secondaryButtons'>
-                <button onClick={() => setMode('register')}>Register</button>
+                <button onClick={() => dispatch(setAuthState('register'))}>Register</button>
             </div>
         </form>
     )

@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import Login from '../components/LoginForm';
 import Register from '../components/RegisterForm';
+import { useSelector } from 'react-redux';
+
 
 export default function Auth() {
     
-    const [mode, setMode] = useState('login');
-
+    const authState = useSelector(state => state.authState);
     
-    if (mode === "login"){
+    if (authState === "login"){
         return(
-            <Login setMode={(mode) => { setMode(mode) }}/>    
+            <Login/>    
         )
     }
-    else if (mode === 'register') {
+    else if (authState === 'register') {
         return(
-            <Register setMode={(mode) => { setMode(mode) }}/>    
+            <Register/>    
         )
     }   
 }
