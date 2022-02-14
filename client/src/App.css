@@ -1,0 +1,259 @@
+body{
+  background: rgb(240, 240, 240);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("./assets/back.png");
+  background-size: 680px; 
+}
+
+*{
+  transition: all 0.1s ease-out;
+}
+
+.main{
+  margin: 20px;
+  transition: all 0.1s ease-out;
+}
+
+.nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notificationBlock{
+  position: absolute;
+  top: 80px;
+  right: 0;
+}
+
+.notification{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px 20px;
+  padding: 10px;
+  gap: 5px;
+  width: 200px;
+  border-radius: 15px;
+  box-shadow: 6px 6px 12px 2px rgba(34, 60, 80, 0.3);
+  z-index: 1;
+  background: rgb(40, 50, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.centeringForm{
+  z-index: 2;
+  position: absolute;
+  display: block;
+  top:40%;
+  left:50%;
+  transform: translate(-50%, -50%);
+}
+
+.formButtons, .listItem .formButtons{
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.formButtons input, .listItem .formButtons input{
+  width: 90%;
+  margin: 0;
+}
+
+.notificationBlock .formButtons{
+  justify-content: space-around;
+}
+  
+.styleForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 40vh;
+  
+  text-shadow: 4px 2px 20px rgba(150, 150, 150, 1);
+  padding: 15px 40px;
+  z-index: 1;
+  background: rgb(40, 50, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 6px 6px 12px 2px rgba(34, 60, 80, 0.3);
+}
+
+.styleForm input{
+  width: 85%;
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  background: none;
+  border-bottom: 1px solid rgb(156, 156, 156);
+  outline: none;
+  font-size: larger;
+}
+
+.styleForm div input{
+  margin: 0 10px;
+}
+
+.styleForm  input[type=text]:hover, input[type=email]:hover, input[type='password']:hover{
+  border-bottom: 1px solid rgb(90, 90, 90);
+}
+
+.listItem{
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  background: rgb(240, 240, 240);
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.listItem:hover{
+  background: rgb(240, 240, 240);
+  box-shadow: 6px 6px 12px 2px rgba(34, 60, 80, 0.3);
+}
+
+.listItem div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.editWishButton{
+  border-radius: 50%;
+  background: none;
+  width: 43px;
+  height: 43px;
+}
+
+svg{
+  fill: #c7c7c7;
+}
+
+svg:hover{
+  fill: rgb(53, 53, 53);
+}
+
+.listItem h4{
+  padding-top: 0;
+  margin-top: 0;
+}
+
+button, input[type='button'], input[type='submit']{
+  font-weight: bold;
+  font-size: medium;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  color: rgb(240, 240, 240);
+  background: rgba(0, 0, 0, 0.8);
+  outline: none;
+}
+
+button:hover, input[type='button']:hover, input[type='submit']:hover{
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  color: rgb(255, 255, 255);
+}
+
+span{
+  font-size: medium;
+  font-weight: lighter;
+  color: rgb(126, 126, 126);
+}
+
+.secondaryButtons button{
+  font-weight: normal;
+  font-size: larger;
+  background: none;
+  color: #8e8e8e;
+  font-size: larger;
+}
+
+.secondaryButtons button:hover{
+  color: black;
+  box-shadow:  none;
+  text-shadow: 3px 1px 14px rgba(150, 150, 150, 1);
+}
+
+.tipForWrongInput{
+  width: 100%;
+  margin: -0.7em auto -0.5em;
+  overflow: hidden;
+  text-align: center;
+  line-height: 1.2em;
+  color: red;
+  background: none;
+  border-top: 3px solid red;
+}
+
+.shareList{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.userList{
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  width: 350px;
+  border-radius: 8px;
+  margin: 20px 10px 0;
+  padding: 10px;
+}
+
+.userList b{
+  font-size: 19px;
+}
+
+.userList button{
+  opacity: 0;
+}
+
+.userList:hover button{
+  transition: 1s;
+  opacity: 1;
+}
+
+.userList:hover{
+  box-shadow: 6px 6px 12px 2px rgba(34, 60, 80, 0.3);
+}
+
+.deleteButton{
+  width: 100%;
+}
+
+.deleteButton:hover{
+  color: red;
+}
+
+h4[data-type='link']{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+h4[data-type='link']:hover{
+  color: blue;
+}
+
+.usernameTitle{
+  font-size: large;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.exitButton{
+  margin-left: 10px;
+}
