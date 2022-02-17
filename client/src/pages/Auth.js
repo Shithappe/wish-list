@@ -5,15 +5,16 @@ import { useSelector } from 'react-redux';
 
 
 export default function Auth() {
+
+    const auth = useSelector(state => state.auth.mode);
+
     
-    const authState = useSelector(state => state.authState);
-    
-    if (authState === "login"){
+    if (auth === "login"){
         return(
             <Login/>    
         )
     }
-    else if (authState === 'register') {
+    else if (auth === 'register') {
         return(
             <Register/>    
         )

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
-import { setAuthState } from "../actions/index.js";
+import { changeAuth } from "../store/authSlice";
 import { registration } from "../services";
 
 export default function RegisterForm({setMode}){
@@ -45,7 +45,7 @@ export default function RegisterForm({setMode}){
             <br/>
             <input type='submit' value='Register' />
             <div className='secondaryButtons'>
-                <button onClick={() => dispatch(setAuthState('login'))}>Login</button>
+                <button onClick={() => dispatch(changeAuth('login'))}>Login</button>
             </div>
         </form>
     )
