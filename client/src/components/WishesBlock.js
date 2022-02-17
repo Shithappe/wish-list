@@ -4,7 +4,7 @@ import OtherWish from './OtherWish.js'
 import { useSelector, useDispatch } from 'react-redux';
 import { increment } from '../actions/index.js';
 
-import { getWish } from '../services/services';
+import { getWish } from '../services';
 
 export default function WishesBlock({refresh, setRefreshWishes}) {
 
@@ -17,16 +17,17 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
     async function fetchData() {
         const wishes = await getWish();
         setWishes(wishes);
+        console.log(wishes);
         
-        const userIds = [...new Set(wishes.otherWishes.map(item => item.user_id))];
+        // const userIds = [...new Set(wishes.otherWishes.map(item => item.user_id))];
         
-        let wishesByUserId = [];
-        userIds.forEach(userId => {
-            const userWishes = wishes.otherWishes.filter(wish => wish.user_id === userId);
-            wishesByUserId.push(userWishes);
-        });
+        // let wishesByUserId = [];
+        // userIds.forEach(userId => {
+        //     const userWishes = wishes.otherWishes.filter(wish => wish.user_id === userId);
+        //     wishesByUserId.push(userWishes);
+        // });
 
-        setOtherUsersWishes(wishesByUserId);
+        // setOtherUsersWishes(wishesByUserId);
 
         setRefreshWishes(true);
     }
@@ -73,8 +74,7 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
             <h2 onClick={() => {dispatch(increment(5))}}>My wishes : {counter}</h2>
             { wishes.myWishes && wishes.myWishes.map((item) =>  <Wish key={item.id} data={formatData(item)} update={() => fetchData()}/>) }
             
-            { otherUsersWishes && otherUsersWishes.map((item) => 
-                
+            { wishes.otherWishes && wishes.otherWishes.map((item) => 
                <div key={item.id}>
                    <div className='usernameTitle'>{item[0].username}</div>
                    { item && item.map((otherwish) => <OtherWish key={otherwish.id} data={formatData(otherwish)}/>) }

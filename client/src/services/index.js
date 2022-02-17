@@ -21,10 +21,19 @@ export async function getWish(){
             if (element.user_id == id) mywishtemp.push(element); 
             else otherwishtemp.push(element);
         });
+
+        const userIds = [...new Set(otherwishtemp.map(item => item.user_id))];
+        let wishesByUserId = [];
+        userIds.forEach(userId => {
+            const userWishes = otherwishtemp.filter(wish => wish.user_id === userId);
+            wishesByUserId.push(userWishes);
+        });
         
-        if (otherwishtemp.length) data = { myWishes: mywishtemp, otherWishes: otherwishtemp }
+        let data;
+        if (otherwishtemp.length) data = { myWishes: mywishtemp, otherWishes: wishesByUserId }
         else data = { myWishes: mywishtemp }
 
+        
         return data;
     })
     .catch(function (error) {

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { addWish } from '../services/services';
+import { addWish } from '../services';
 
 export default function AddItemForm({handleWish, setRefreshWishes}) {
     const { register, handleSubmit, formState: {errors} } = useForm();

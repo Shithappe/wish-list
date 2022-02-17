@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import { updateWish, deleteWish } from "../services/services";
+import { updateWish, deleteWish } from "../services";
 
 export default function EditItemForm({ data, handlEdit, update}) {
     const { register, handleSubmit, formState: {errors} } = useForm();

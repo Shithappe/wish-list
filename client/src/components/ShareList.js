@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getUserList, shareWish } from '../services/services';
+import { getUserList, shareWish } from '../services';
 
 
 export default function ShareList() {

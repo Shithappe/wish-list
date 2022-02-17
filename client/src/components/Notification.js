@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getNotification, acceptShare, cancelShare } from '../services/services';
+import { getNotification, acceptShare, cancelShare } from '../services';
 
 export default function Notification({setRefreshWishes}) {
 

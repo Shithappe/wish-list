@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { setAuthState } from "../actions/index.js";
-import { registration } from "../services/services";
+import { registration } from "../services";
 
 export default function RegisterForm({setMode}){
     const { register, handleSubmit, formState: {errors}, watch } = useForm();
