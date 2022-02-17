@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 // import fetchWishes from './wishSlice';
-import counterReducer from './counterSlice';
+import counterSlice from './counterSlice';
 import authSlice from './authSlice';
+import wishSlice from './wishSlice'
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
-    auth: authSlice
+    counter: counterSlice,
+    auth: authSlice,
+    wishList: wishSlice
   },
 });

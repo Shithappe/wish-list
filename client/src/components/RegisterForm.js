@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { changeAuth } from "../store/authSlice";
 import { registration } from "../services";
 
-export default function RegisterForm({setMode}){
+export default function RegisterForm(){
     const { register, handleSubmit, formState: {errors}, watch } = useForm();
     const pass = watch('password');
     const cPass = watch('comfPass');

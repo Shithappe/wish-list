@@ -4,7 +4,6 @@ import OtherWish from './OtherWish.js'
 import { useSelector, useDispatch } from 'react-redux';
 import { increment } from '../store/counterSlice';
 
-import { getWish } from '../services';
 
 export default function WishesBlock({refresh, setRefreshWishes}) {
 
@@ -13,18 +12,21 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
     const [wishes, setWishes] = useState({});
 
     const counter = useSelector(state => state.counter);
+    const WishList = useSelector(state => state.wishList.wishes);
     const dispatch = useDispatch();
     
     async function fetchData() {
-        const wishes = await getWish();
-        setWishes(wishes);
+        // const wishes = await getWish();
+        // setWishes(wishes);
 
         setRefreshWishes(true);
     }
 
     useEffect(() => {
         fetchData();
-        console.log(counter);
+        WishList.then((res) => {
+            setWishes(res);
+        })
     }, [])
 
     if (refresh) fetchData();
