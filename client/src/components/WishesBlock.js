@@ -9,7 +9,6 @@ import { getWish } from '../services';
 export default function WishesBlock({refresh, setRefreshWishes}) {
 
     const [wishes, setWishes] = useState({});
-    const [otherUsersWishes, setOtherUsersWishes] = useState([]);
 
     const counter = useSelector(state => state.counter);
     const dispatch = useDispatch();
@@ -17,17 +16,6 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
     async function fetchData() {
         const wishes = await getWish();
         setWishes(wishes);
-        console.log(wishes);
-        
-        // const userIds = [...new Set(wishes.otherWishes.map(item => item.user_id))];
-        
-        // let wishesByUserId = [];
-        // userIds.forEach(userId => {
-        //     const userWishes = wishes.otherWishes.filter(wish => wish.user_id === userId);
-        //     wishesByUserId.push(userWishes);
-        // });
-
-        // setOtherUsersWishes(wishesByUserId);
 
         setRefreshWishes(true);
     }

@@ -29,11 +29,10 @@ export async function getWish(){
             wishesByUserId.push(userWishes);
         });
         
-        let data;
         if (otherwishtemp.length) data = { myWishes: mywishtemp, otherWishes: wishesByUserId }
         else data = { myWishes: mywishtemp }
 
-        
+
         return data;
     })
     .catch(function (error) {
