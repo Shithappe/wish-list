@@ -2,19 +2,26 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { updateWish, deleteWish } from "../services";
 
-export default function EditItemForm({ data, handlEdit, update}) {
+import { useSelector, useDispatch } from 'react-redux';
+import { changeEditItemForm } from '../store/switchSlice';
+
+export default function EditItemForm({ data }) {
     const { register, handleSubmit, formState: {errors} } = useForm();
 
     const [name, setName] = useState(data.name);
     const [link, setLink] = useState(data.link);
     const [price, setPrice] = useState(data.price);
 
+    const dispatch = useDispatch();
+    const edit = useSelector(state => state.switches.edit);
+
+
     return (
         <form className="centeringForm styleForm" onSubmit={handleSubmit((dataForm) => {
 
                 updateWish(data.id, dataForm);
-                handlEdit(false);
-                update(); 
+                dispatch(changeEditItemForm());
+                // сюда обновление вишек из стора 
                 
                 })}>
             <h2>Update Wish</h2>
@@ -26,12 +33,12 @@ export default function EditItemForm({ data, handlEdit, update}) {
 
             <div className="formButtons">
                 <input type='submit' value='Update'/>
-                <input onClick={() => handlEdit(false)} type='button' value='Cancel'/>
+                <input onClick={() => dispatch(changeEditItemForm())} type='button' value='Cancel'/>
             </div>
             <button className="deleteButton" onClick={() => {
                 deleteWish(data.id);
-                handlEdit(false);
-                update();
+                dispatch(changeEditItemForm());
+                // сюда обновление вишек из стора 
             }}>Delete this wish</button>
         </form>
     )

@@ -3,17 +3,21 @@ import WishesBlock from '../components/WishesBlock.js';
 import Notification from '../components/Notification.js'
 import ShareList from '../components/ShareList.js';
 import AddItemForm from '../components/AddItemForm.js'
-
+import { useSelector, useDispatch } from 'react-redux';
+import { changeAddItemFrom, changeShareList } from '../store/switchSlice';
 import Cookies from "js-cookie";
 
 
 export default function Home() {
     if (!Cookies.get('id')) window.location.assign(process.env.REACT_APP_CLIENT_HOST + '/auth');
 
-    const [switchShareWish, setSwitchShareWish] = useState(false); //switch for showing the form addWish
-    const [wish, setWish] = useState(false); //switch for showing the form addWish
-    const [refreshWishes, setRefreshWishes] = useState(false); // signal for refresh wishes to WishesBlock
+    const dispatch = useDispatch();
 
+    const switches = {
+        add: useSelector(state => state.switches.add),
+        edit: useSelector(state => state.switches.EditItemForm),
+        share: useSelector(state => state.switches.ShareList)
+    }
 
 
     function Nav(){
@@ -21,10 +25,10 @@ export default function Home() {
             <div className='nav'>
                 <div className='title'>
                     <h1>Wish List<span>.react</span> </h1>
-                    <button onClick={() => setWish(true)}>Add wish</button>
+                    <button onClick={() => dispatch(changeAddItemFrom())}>Add wish</button>
                 </div>
                 <div>
-                    <button onClick={() => {setSwitchShareWish(!switchShareWish)}}>Share wish</button>
+                    <button onClick={() => {dispatch(changeShareList())}}>Share wish</button>
                     <button className='exitButton' onClick={() => {
                         Cookies.remove('id');
                         Cookies.remove('Authorization');
@@ -39,24 +43,13 @@ export default function Home() {
         <div className='main'>
             <Nav/>
             
-            <Notification 
-                handleWish={(value) => { setWish(value) }} 
-                setRefreshWishes={ (value) => { setRefreshWishes(value) }}
-            />
+            <Notification/> {/* сюда нужно положить обновление всех вишек */}
 
+            { switches.add && <AddItemForm /> } {/* сюда нужно положить добавление вишки в store */}
 
-            { wish && <AddItemForm 
-                            handleWish={(value) => { setWish(value) }} 
-                            setRefreshWishes={ (value) => { setRefreshWishes(value) }} 
-                        /> 
-            }
+            { switches.share && <ShareList /> } 
 
-            { switchShareWish && <ShareList /> } 
-
-            <WishesBlock 
-                refresh={refreshWishes}
-                setRefreshWishes={ () => { setRefreshWishes() }}
-            />
+            <WishesBlock/>
 
         </div>
     )

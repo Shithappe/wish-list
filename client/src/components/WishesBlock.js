@@ -7,29 +7,25 @@ import { increment } from '../store/counterSlice';
 
 export default function WishesBlock({refresh, setRefreshWishes}) {
 
-
-
     const [wishes, setWishes] = useState({});
 
     const counter = useSelector(state => state.counter);
     const WishList = useSelector(state => state.wishList.wishes);
     const dispatch = useDispatch();
     
-    async function fetchData() {
+    // async function fetchData() {
         // const wishes = await getWish();
         // setWishes(wishes);
-
-        setRefreshWishes(true);
-    }
+    // }
 
     useEffect(() => {
-        fetchData();
+        // fetchData();
         WishList.then((res) => {
             setWishes(res);
         })
     }, [])
 
-    if (refresh) fetchData();
+    // if (refresh) fetchData();
 
     function formatName(name) {
         if (name.length < 35) return name;
@@ -65,7 +61,7 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
     return (
         <div>
             <h2 onClick={() => {dispatch(increment(2))}}>My wishes : {counter.value}</h2>
-            { wishes.myWishes && wishes.myWishes.map((item) =>  <Wish key={item.id} data={formatData(item)} update={() => fetchData()}/>) }
+            { wishes.myWishes && wishes.myWishes.map((item) =>  <Wish key={item.id} data={formatData(item)}/>) }
             
             { wishes.otherWishes && wishes.otherWishes.map((item) => 
                <div key={item.id}>

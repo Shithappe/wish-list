@@ -1,14 +1,19 @@
 import { useForm } from "react-hook-form";
+import { useDispatch } from 'react-redux';
+import { fetchWishes } from "../store/wishSlice";
+import { changeAddItemFrom } from '../store/switchSlice';
 import { addWish } from '../services';
 
-export default function AddItemForm({handleWish, setRefreshWishes}) {
+export default function AddItemForm() {
     const { register, handleSubmit, formState: {errors} } = useForm();
+
+    const dispatch = useDispatch();
 
     return (
         <form className="centeringForm styleForm" onSubmit={handleSubmit((data) => {
                 addWish(data);
-                handleWish(false);
-                setRefreshWishes(true);
+                dispatch(fetchWishes());
+                dispatch(changeAddItemFrom())
                 })}>
             <h2>Add Wish</h2>
             <input {...register('name', {required: "This is required"})} type='text' placeholder="Name"/>
@@ -19,7 +24,7 @@ export default function AddItemForm({handleWish, setRefreshWishes}) {
 
             <div className="formButtons">
                 <input type='submit' value='Create'/>
-                <input onClick={() => handleWish(false)} type='button' value='Cancel'/>
+                <input onClick={() => dispatch(changeAddItemFrom())} type='button' value='Cancel'/>
             </div>
         </form>
     )

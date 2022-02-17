@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { getWish } from '../services';
 
 const wishList = createSlice({
@@ -6,8 +6,21 @@ const wishList = createSlice({
     initialState: {
         wishes: getWish()
     },
+    reducers: {
+        fetchWishes: state => {
+            state.wishes = getWish();
+        },
+        addWishes(state, action) {
+
+        },
+        updateWish(state, action) {
+            
+        }
+    }
     
 })
 
-export default wishList.reducer;
 
+export const { fetchWishes } = wishList.actions;
+
+export default wishList.reducer;
