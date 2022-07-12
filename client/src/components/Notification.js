@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getNotification, acceptShare, cancelShare } from '../services/services';
 
+import Cookies from "js-cookie";
+
 export default function Notification({setRefreshWishes}) {
 
     const [users, setUsers] = useState([]);
+    const user_id = Cookies.get('id');
 
     async function fetchNotification() {
         const notification = await getNotification();
@@ -27,7 +30,7 @@ export default function Notification({setRefreshWishes}) {
                              gave you access to his list</p>
             <div className="formButtons">
                 <button onClick={ () => {
-                    acceptShare(user.id);
+                    acceptShare(user_id, user.id);
                     setRefreshWishes(true);
                     fetchNotification();
                 }}>Accept</button>

@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: process.env.DB_USER,
   database: 'WishList',
-  password: process.env.DB_PASSWORD
+  password: process.env.DB_PASSWORD,
 });
  connection.connect(function(err){
     if (err) {

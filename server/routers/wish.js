@@ -114,6 +114,10 @@ router.post('/share', verify, (req, res) => {
 })
 
 router.patch('/share', verify, (req, res) => {
+    console.log(`UPDATE share SET accepted = ${req.body.accepted} WHERE recipient_id = ${req.user._id} AND sender_id = ${req.body.sender_id}`);
+    console.log(`recipient_id = ${req.user._id}`);
+    console.log(`sender_id = ${req.body.sender_id}`);
+    
     try{
         connection.query(
             `UPDATE share SET accepted = ${req.body.accepted} WHERE recipient_id = ${req.user._id} AND sender_id = ${req.body.sender_id}`,
@@ -124,6 +128,7 @@ router.patch('/share', verify, (req, res) => {
             }
         );
     }
+    // UPDATE share SET accepted = 1 WHERE recipient_id = 26 AND sender_id = 41
     catch(err){
         res.status(400).send(err);
     }
@@ -132,7 +137,7 @@ router.patch('/share', verify, (req, res) => {
 router.get('/notification', verify, (req, res) => {
     try{
         connection.query(
-            `select s.id, username, email from users u join share s on (u.id=s.sender_id) where s.recipient_id = ${req.user._id} and s.accepted = 0;`,
+            `select s.id, u.id, username, email from users u join share s on (u.id=s.sender_id) where s.recipient_id = ${req.user._id} and s.accepted = 0;`,
             function(err, result) {
                 if (!err) {
                     res.status(200).send(result);

@@ -5,7 +5,7 @@ module.exports = function (req, res, next) {
     if (!token) return res.sendStatus(401);
 
     try {
-        const verified = jwt.verify(token, process.env.SECRET_TOKEN);
+        const verified = jwt.verify(token, process.env.SECRET_TOKEN);  // 'hbejvrkskbhjvrevsbrejvbsrjrevsejrhbkres'
         req.user = verified;
         next();
     }catch{

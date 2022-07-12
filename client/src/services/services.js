@@ -95,6 +95,7 @@ export function getNotification() {
         }
     })
     .then(function (response) {
+        console.log(response.data);
         return response.data;
     })
     .catch(function (error) {
@@ -102,12 +103,14 @@ export function getNotification() {
     });
 }
 
-export function acceptShare(id) {
+export function acceptShare(recipient_id, sender_id) {
+    console.log(recipient_id, sender_id);
     return axios({
         method: 'patch',
         url: `${process.env.REACT_APP_SERVER_HOST}/wish/share`,
         data: {
-            sender_id: id,
+            sender_id,
+            recipient_id,
             accepted: 1
         },
         headers: {

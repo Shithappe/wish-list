@@ -28,14 +28,17 @@ export default function WishesBlock({refresh, setRefreshWishes}) {
 
         setOtherUsersWishes(wishesByUserId);
 
-        setRefreshWishes(true);
+        setRefreshWishes(false);
     }
 
     useEffect(() => {
         fetchData();
     }, [])
 
-    if (refresh) fetchData();
+    if (refresh) {
+        fetchData();
+        setRefreshWishes(false);
+    }
 
     function formatName(name) {
         if (name.length < 35) return name;
